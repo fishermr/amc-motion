@@ -1,0 +1,34 @@
+{
+  "clients": [
+    {
+      "clientId": "bf4fe5ae-c2f7-4f3d-8b9f-68221226de98",
+      "active": true,
+      "clientName": "Hillcrest Family Services",
+      "shortName": "hfs"
+    },
+    {
+      "clientId": "438f8863-7996-472c-a4f0-7cbcf287ef4e",
+      "active": false,
+      "clientName": "Rural Health Projects, Inc.",
+      "shortName": "rhp"
+    },
+    {
+      "clientId": "20cdafab-a76c-4cd8-992d-f292e1b45b1a",
+      "active": false,
+      "clientName": "Rappahannock EMS Council",
+      "shortName": "rems"
+    },
+    {
+      "clientId": "bbb5ecac-a339-4e1a-8a79-10b9f14fa06a",
+      "active": false,
+      "clientName": "Roboson RCORP Consortium",
+      "shortName": "robo"
+    },
+    {
+      "clientId": "003b2754-c774-4a82-8a56-4231a624eab4",
+      "active": false,
+      "clientName": "United Behavior Health Solutions",
+      "shortName": "ubhs"
+    }
+  ]
+}

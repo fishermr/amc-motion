@@ -1,0 +1,49 @@
+{
+  "headers": [
+    {
+      "clientId":"bf4fe5ae-c2f7-4f3d-8b9f-68221226de98",
+      "logoImage":"https://dreqd1ad59oml.cloudfront.net/hill-crest/svg/client/hfs-logo.svg",
+      "logoImageAlt":"HFS Logo",
+      "organizationSignupName":"ORGANIZATION SIGN UP",
+      "reflectionsSignupName":"SUBSCRIBE NOW",
+      "organizationSignupLink":"https://heudiahealth.formstack.com/forms/hfsonboardingform",
+      "reflectionsSignupLink":"https://heudiahealth.formstack.com/forms/hfsuserregistration",
+      "aboutCompany":"ABOUT HILLCREST AMC",
+      "callTracking":"1-(563) 583-7357"
+    },
+    {
+      "clientId":"20cdafab-a76c-4cd8-992d-f292e1b45b1a",
+      "logoImage":"./assets/svg/rems/rappahannock-logo.svg",
+      "logoImageAlt":"REMS Logo",
+      "organizationSignupName":"ORGANIZATION SIGN UP",
+      "reflectionsSignupName":"",
+      "organizationSignupLink":"https://heudiahealth.formstack.com/forms/rappahannock_onboardingform",
+      "reflectionsSignupLink":"",
+      "aboutCompany":"ABOUT RURAL HEALTH PROJECTS",
+      "callTracking":"XXX-XXX-XXXX"
+    },
+    {
+      "clientId":"438f8863-7996-472c-a4f0-7cbcf287ef4e",
+      "logoImage":"./assets/svg/rhp/NW OK ResourcesAsset_no-Square-Horiz.svg",
+      "logoImageAlt":"RHP-VAX Logo",
+      "organizationSignupName":"ORGANIZATION SIGN UP",
+      "reflectionsSignupName":"",
+      "organizationSignupLink":"https://heudiahealth.formstack.com/forms/homenetworkonboardingform",
+      "reflectionsSignupLink":"",
+      "aboutCompany":"ABOUT RURAL HEALTH PROJECTS",
+      "callTracking":"1-(405)-400-2785"
+    },
+    {
+      "clientId":"bbb5ecac-a339-4e1a-8a79-10b9f14fa06a",
+      "logoImage":"./assets/svg/robeson/robeson-accessmecare.svg",
+      "logoImageAlt":"Robeson Logo",
+      "organizationSignupName":"ORGANIZATION SIGN UP",
+      "reflectionsSignupName":"",
+      "organizationSignupLink":"https://heudiahealth.formstack.com/forms/test_1_copy_copy_1",
+      "reflectionsSignupLink":"",
+      "aboutCompany":"ABOUT ROBESON PROJECTS",
+      "callTracking":"1-(910)-693-4202",
+      "callTracking":"1-(910)-693-4202"
+    }
+  ]
+}

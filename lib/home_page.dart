@@ -1,0 +1,132 @@
+
+import 'package:amcmotion/widgets/home_actions.dart';
+import 'package:amcmotion/widgets/home_banner.dart';
+import 'package:amcmotion/widgets/menu_drawer.dart';
+import 'package:amcmotion/widgets/service_actions.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:amcmotion/api/chat_api.dart';
+import 'package:http/http.dart' as http;
+import 'api/client_service_api.dart';
+import 'api/common_data_api.dart';
+import 'api/general_config_api.dart';
+import 'api/header_api.dart';
+import 'models/org_configuration_model.dart';
+import 'models/client_configuration_model.dart';
+import 'chat_page.dart';
+import 'dart:convert';
+import 'dart:developer';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key, required this.title, required this.chatApi});
+
+  final String title;
+  final ChatApi chatApi;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+}
+
+class _HomePageState extends State<HomePage> {
+
+  bool isLoading = true;
+  OrgConfigurationModel? dataFromAPI;
+  ClientServiceApi? clientService = ClientServiceApi();
+  GeneralConfigApi? generalConfig = GeneralConfigApi();
+  CommonConfigApi? commonConfig = CommonConfigApi();
+  CommonModel? commonData = CommonModel(learnMoreLabel: '', learnMoreUrl: '', saveLabel: '');
+  HeaderApi? headerService = HeaderApi();
+
+  Client activeClient = Client("", "", "", false);
+  Header activeHeader = Header("", "", "", "", "", "", "", "", "");
+  String? clientId = '';
+  String? clientName = '';
+  String? shortName = '';
+  bool? clientActive = false;
+
+
+  @override
+  void initState() {
+    super.initState();
+
+    getClientService();
+  }
+
+  getClientService() async {
+    activeClient = await clientService!.clientData();
+    if (kDebugMode) {
+      log('client length:  ${activeClient.clientName}');
+    }
+    clientId = activeClient.clientId;
+    clientName = activeClient.clientName;
+    shortName = activeClient.shortName;
+    clientActive = activeClient.active;
+
+    getGeneralConfig();
+  }
+
+  getGeneralConfig() async {
+    dataFromAPI = await generalConfig!.configData();
+    getCommonData();
+  }
+
+  getCommonData() async {
+    commonData = await commonConfig!.commonConfig();
+    getHeaderData(clientId!);
+  }
+
+  getHeaderData(String clientId) async {
+    activeHeader = await headerService!.headerData(clientId);
+    if (kDebugMode) {
+      log('header clientId:  ${activeHeader.clientId}');
+    }
+    isLoading = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text( widget.title)),
+      body:
+          !isLoading ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Column(
+            children: [
+              bannerSection(context),
+              actionSection(context, widget.chatApi),
+              serviceSection(context, dataFromAPI?.clientServices),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+                child:
+                OutlinedButton(
+                    onPressed: (){
+                      if (kDebugMode) {
+                        print('FIND HELP touched');
+                      }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                            ChatPage(chatApi: widget.chatApi)),
+                      );
+                    },
+                    child: const Text('FIND HELP')
+                ),
+              ),
+            ]
+        ),
+      endDrawer: menuDrawer(context)
+    );
+  }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<OrgConfigurationModel>('dataFromAPI', dataFromAPI));
+  }
+}
