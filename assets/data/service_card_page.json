@@ -1,16 +1,147 @@
 {
-  "serviceCard": [
+  "clients": [
     {
-      "clientId":"bf4fe5ae-c2f7-4f3d-8b9f-68221226de98"
+      "clientName": "Hillcrest Family Services",
+      "clientId":"bf4fe5ae-c2f7-4f3d-8b9f-68221226de98",
+      "services": [0, 1, 11, 7, 6]
     },
     {
-      "clientId":"20cdafab-a76c-4cd8-992d-f292e1b45b1a"
+      "clientName": "Rappahannock EMS Council",
+      "clientId":"20cdafab-a76c-4cd8-992d-f292e1b45b1a",
+      "services": [0, 1, 11, 7, 6]
     },
     {
-      "clientId":"438f8863-7996-472c-a4f0-7cbcf287ef4e"
+      "clientName": "Rural Health Projects, Inc.",
+      "clientId":"438f8863-7996-472c-a4f0-7cbcf287ef4e",
+      "services": [0, 1, 11, 7, 6]
     },
     {
-      "clientId":"bbb5ecac-a339-4e1a-8a79-10b9f14fa06a"
+      "clientName": "Roboson RCORP Consortium",
+      "clientId":"bbb5ecac-a339-4e1a-8a79-10b9f14fa06a",
+      "services": [0, 1, 11, 7, 6]
     }
-  ]
+  ],
+  "serviceType": [
+    {
+      "serviceTitle": "BASIC NEEDS",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/basic-needs-white-icon.svg",
+      "serviceWhiteLogoAlt": "Basic Needs",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/basic-needs-purple-icon.svg",
+      "serviceBlueLogoAlt": "Basic Needs Icon"
+    },
+    {
+      "serviceTitle": "BEHAVIORAL HEALTH",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/behavioral-health-white-icon.svg",
+      "serviceWhiteLogoAlt": "Behavioral Health",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/behavioral-health-purple-icon.svg",
+      "serviceBlueLogoAlt": "Behavioral Health"
+    },
+    {
+      "serviceTitle": "BRAIN HEALTH",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/brain-health-white-icon.svg",
+      "serviceWhiteLogoAlt": "Brain Health",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/brain-health-purple-icon.svg",
+      "serviceBlueLogoAlt": "Brain Health"
+    },
+    {
+      "serviceTitle": "CHRONIC CARE",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/chronic-care-white-icon.svg",
+      "serviceWhiteLogoAlt": "Chronic Care",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/chronic-care-purple-icon.svg",
+      "serviceBlueLogoAlt": "Chronic Care"
+    },
+    {
+      "serviceTitle": "COMMUNITY SCHOOLS",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/community-schools-white-icon.svg",
+      "serviceWhiteLogoAlt": "Community Schools",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/community-schools-purple-icon.svg",
+      "serviceBlueLogoAlt": "Community Schools Icon"
+    },
+    {
+      "serviceTitle": "JOBS AND EMPLOYMENT",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/jobs-white-icon.svg",
+      "serviceWhiteLogoAlt": "Jobs and Employment Logo",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/jobs-purple-icon.svg",
+      "serviceBlueLogoAlt": "Jobs and Employment Logo"
+    },
+    {
+      "serviceTitle": "HOUSING",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/housing-white-icon.svg",
+      "serviceWhiteLogoAlt": "Housing",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/housing-purple-icon.svg",
+      "serviceBlueLogoAlt": "Housing"
+    },
+    {
+      "serviceTitle": "PRIMARY CARE",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/primary-care-white-icon.svg",
+      "serviceWhiteLogoAlt": "Primary Care",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/primary-care-purple-icon.svg",
+      "serviceBlueLogoAlt": "Primary Care"
+    },
+    {
+      "serviceTitle": "RESOURCES AGING ADULTS",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/resources-aging-adults-white-icon.svg",
+      "serviceWhiteLogoAlt": "Resources Aging Adults Logo",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/resources-aging-adults-purple-icon.svg",
+      "serviceBlueLogoAlt": "Resources Aging Adults Logo"
+    },
+    {
+      "serviceTitle": "RTS SERVICES",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/rts-services-white-icon.svg",
+      "serviceWhiteLogoAlt": "RTS Services Logo",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/rts-services-purple-icon.svg",
+      "serviceBlueLogoAlt": "RTS Services Logo"
+    },
+    {
+      "serviceTitle": "RURAL HEALTH PROGRAMS",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/rural-health-white-icon.svg",
+      "serviceWhiteLogoAlt": "Rural Health Programs",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/rural-health-purple-icon.svg",
+      "serviceBlueLogoAlt": "Rural Health Programs"
+    },
+    {
+      "serviceTitle": "TRANSPORTATION",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/transportation-white-icon.svg",
+      "serviceWhiteLogoAlt": "Transportation",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/transportation-purple-icon.svg",
+      "serviceBlueLogoAlt": "Transportation Icon"
+    },
+    {
+      "serviceTitle": "YOUTH RESOURCES",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/youth-resources-white-icon.svg",
+      "serviceWhiteLogoAlt": "Youth Resources",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/youth-resources-purple-icon.svg",
+      "serviceBlueLogoAlt": "Youth Resources Icon"
+    },
+    {
+      "serviceTitle": "VACCINATION PROVIDERS",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/vax-providers-white-icon.svg",
+      "serviceWhiteLogoAlt": "Vaccination Providers",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/vax-providers-purple-icon.svg",
+      "serviceBlueLogoAlt": "Vaccination Providers Icon"
+    },
+    {
+      "serviceTitle": "VACCINATION EDUCATION",
+      "serviceWhiteLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/vax-education-white-icon.svg",
+      "serviceWhiteLogoAlt": "Vaccination Education",
+      "serviceBlueLogo": "https://dreqd1ad59oml.cloudfront.net/all-clients/svg/vax-education-purple-icon.svg",
+      "serviceBlueLogoAlt": "Vaccination Education Icon"
+    }
+  ],
+  "properties": {
+    "comingSoonTitle": "Coming Soon!",
+    "purposeStatement": "Our team is working to build a a network of services customized for your and your community's needs.",
+    "serviceStatement": "If your organization provides these services to the community or you know of an organization who should be included, please sign-up or make a referral. ,",
+    "signupButtonText": "SIGN-UP",
+    "referOrganizationButtonText": "REFER ORGANIZATION",
+    "signupButtonLink": "https://heudiahealth.formstack.com/forms/rappahannock_onboardingform",
+    "referOrgButtonLink": "https://heudiahealth.formstack.com/forms/orf_dcf",
+    "all": "ALL",
+    "urgentNeeds": "URGENT",
+    "healthServices": "HEALTH",
+    "socialServices": "SOCIAL",
+    "educationServices": "EDUCATION",
+    "financialServices": "FINANCE",
+    "popularServices": "POPULAR SERVICES IN YOUR AREA"
+  }
 }

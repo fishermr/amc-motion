@@ -11,6 +11,7 @@ import 'api/client_service_api.dart';
 import 'api/common_data_api.dart';
 import 'api/general_config_api.dart';
 import 'api/header_api.dart';
+import 'api/home_api.dart';
 import 'models/org_configuration_model.dart';
 import 'models/client_configuration_model.dart';
 import 'chat_page.dart';
@@ -40,11 +41,13 @@ class _HomePageState extends State<HomePage> {
   ClientServiceApi? clientService = ClientServiceApi();
   GeneralConfigApi? generalConfig = GeneralConfigApi();
   CommonConfigApi? commonConfig = CommonConfigApi();
-  CommonModel? commonData = CommonModel(learnMoreLabel: '', learnMoreUrl: '', saveLabel: '');
+  late CommonModel? commonData;
   HeaderApi? headerService = HeaderApi();
+  HomeApi? homeService = HomeApi();
 
-  Client activeClient = Client("", "", "", false);
-  Header activeHeader = Header("", "", "", "", "", "", "", "", "");
+  late Client activeClient;
+  late Header activeHeader;
+  late Home activeHome;
   String? clientId = '';
   String? clientName = '';
   String? shortName = '';
@@ -55,38 +58,71 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
+    isLoading = true;
     getClientService();
-  }
-
-  getClientService() async {
-    activeClient = await clientService!.clientData();
-    if (kDebugMode) {
-      log('client length:  ${activeClient.clientName}');
-    }
-    clientId = activeClient.clientId;
-    clientName = activeClient.clientName;
-    shortName = activeClient.shortName;
-    clientActive = activeClient.active;
-
     getGeneralConfig();
-  }
-
-  getGeneralConfig() async {
-    dataFromAPI = await generalConfig!.configData();
     getCommonData();
-  }
-
-  getCommonData() async {
-    commonData = await commonConfig!.commonConfig();
     getHeaderData(clientId!);
+    getHomeData(clientId!);
   }
 
-  getHeaderData(String clientId) async {
+  Future<void> getClientService() async {
+    activeClient = await clientService!.clientData();
+    setState(() {
+      if (kDebugMode) {
+        log('client length:  ${activeClient.clientName}');
+      }
+      clientId = activeClient.clientId;
+      clientName = activeClient.clientName;
+      shortName = activeClient.shortName;
+      clientActive = activeClient.active;
+
+      if (kDebugMode) {
+        print('getClientService isLoading: $isLoading');
+      }
+    });
+  }
+
+  Future<void> getGeneralConfig() async {
+    dataFromAPI = await generalConfig!.configData();
+    setState(() {
+      if (kDebugMode) {
+        print(
+            'getGeneralConfig dataFromAPI!clientServices: $dataFromAPI!clientServices');
+        print('getGeneralConfig isLoading: $isLoading');
+      }
+    });
+  }
+
+  Future<void> getCommonData() async {
+    commonData = await commonConfig!.commonConfig();
+    setState(() {
+      if (kDebugMode) {
+        print('getCommonData isLoading: $isLoading');
+      }
+    });
+  }
+
+  Future<void> getHeaderData(String clientId) async {
     activeHeader = await headerService!.headerData(clientId);
-    if (kDebugMode) {
-      log('header clientId:  ${activeHeader.clientId}');
-    }
-    isLoading = false;
+    setState(() {
+      if (kDebugMode) {
+        // log('header clientId:  ${activeHeader.clientId}');
+      }
+      if (kDebugMode) {
+        print('getHeaderData isLoading: $isLoading');
+      }
+    });
+  }
+
+  Future<void> getHomeData(String clientId) async {
+    activeHome = await homeService!.homeData(clientId);
+    setState(() {
+      isLoading = false;
+      if (kDebugMode) {
+        log('home clientId:  ${activeHome.clientId}');
+      }
+    });
   }
 
   @override
@@ -94,7 +130,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(title: Text( widget.title)),
       body:
-          !isLoading ? const Center(
+          isLoading ? const Center(
               child: CircularProgressIndicator(),
             )
           : Column(

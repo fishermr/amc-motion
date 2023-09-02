@@ -1,0 +1,63 @@
+{
+  "ORGANIZATIONELEMENT": {
+    "address": "",
+    "clientServices": [
+      ""
+    ],
+    "description": "",
+    "eligibilityCriteria": [
+      {
+        "item": "",
+        "subItem": ""
+      }
+    ],
+    "email": "",
+    "eventBuildNameNumber": "",
+    "eventCost": "",
+    "eventDate": "",
+    "eventDescription": "",
+    "eventDetails": "",
+    "eventLocation": "",
+    "eventPurpose": "",
+    "eventSpecialRequirement": "",
+    "eventTime": "",
+    "eventTitle": "",
+    "id": "",
+    "logoAlt": "",
+    "logoUrl": "",
+    "map": {
+      "lat": "",
+      "lng": "",
+      "location": ""
+    },
+    "orgCardType": "",
+    "orgName": "",
+    "phoneNumber": "",
+    "promoAlt": "",
+    "promoUrl": "",
+    "serviceName": "",
+    "serviceProvided": [
+      ""
+    ],
+    "services": [
+      {
+        "item": "",
+        "subItem": ""
+      }
+    ],
+    "specialNeeds": [
+      {
+        "item": "",
+        "subItem": ""
+      }
+    ],
+    "tagLine": "",
+    "usefulFeatures": [
+      {
+        "item": "",
+        "subItem": ""
+      }
+    ],
+    "website": ""
+  }
+}

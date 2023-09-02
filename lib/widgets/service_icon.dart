@@ -1,7 +1,7 @@
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter/material.dart';
 
-Widget serviceIcon(BuildContext context, String iconName) {
+Widget serviceIcon(BuildContext context, String iconUrl) {
   return Container(
       color: Colors.white,
       child: (
@@ -11,11 +11,13 @@ Widget serviceIcon(BuildContext context, String iconName) {
                   child: Column(
                     children: <Widget>[
                       SvgPicture.network(
-                        'https://dreqd1ad59oml.cloudfront.net/hill-crest/svg/client/hfs-logo.svg',
+                        iconUrl,
                         semanticsLabel: 'SVG From Network',
-                        placeholderBuilder: (BuildContext context) => Container(
+                        height: 17,
+                        fit: BoxFit.fitHeight,
+                        /*placeholderBuilder: (BuildContext context) => Container(
                             padding: const EdgeInsets.all(30.0),
-                            child: const CircularProgressIndicator()), //placeholder while downloading file.
+                            child: const CircularProgressIndicator()), //placeholder while downloading file.*/
                       )
                     ],
                   ),

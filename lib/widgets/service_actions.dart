@@ -57,10 +57,13 @@ const serviceFivePng = Image(image: AssetImage('assets/images/housing.png'));
 
 Widget serviceSection(context, clientServicesList) {
   navServicePage(serviceType, serviceName) {
+    if (kDebugMode) {
+      print('serviceType: $serviceType  serviceName: $serviceName');
+    }
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) =>
-          ServicePage(serviceType: serviceType, serviceName: serviceName)),
+          ServicePage(serviceKind: serviceType, serviceName: serviceName)),
     );
   }
 
@@ -80,6 +83,7 @@ Widget serviceSection(context, clientServicesList) {
                         onPressed: () {
                           int serviceType = 0;
                           if (kDebugMode) {
+                            print('clientServicesList: $clientServicesList SELECTED');
                             print('${clientServicesList[serviceType].toUpperCase()} SELECTED');
                           }
                           String serviceName = clientServicesList[serviceType];
