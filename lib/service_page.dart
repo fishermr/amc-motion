@@ -419,18 +419,6 @@ class _ServicePageState extends State<ServicePage> {
                   },
                   child: const Center(
                     child: Icon(
-                      Icons.help_outline,
-                      color: Colors.green,
-                      size: 30.0,
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    //
-                  },
-                  child: const Center(
-                    child: Icon(
                       Icons.bookmark,
                       color: Colors.green,
                       size: 30.0,
@@ -473,15 +461,38 @@ class _ServicePageState extends State<ServicePage> {
                     ),
                   ),
                 ),
-                const Expanded(
+                Expanded(
                   child: Align(
                     alignment: Alignment.centerRight,
-                    child: Icon(
-                      Icons.contact_page,
-                      color: Colors.black54,
-                      size: 30.0,
-                    ),
-                  ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                          },
+                          child: const Center(
+                            child: Icon(
+                              Icons.help_outline,
+                              color: Colors.blue,
+                              size: 30.0,
+                            ),
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                          },
+                          child: const Center(
+                            child: Icon(
+                              Icons.contact_page,
+                              color: Colors.blue,
+                              size: 30.0,
+                            ),
+                          ),
+                        ),
+                      ]
+                    )
+                 ),
                 ),
               ]
             ),
