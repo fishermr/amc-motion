@@ -4,9 +4,9 @@ Our mission is to illuminate the world’s narratives with transparency, allowin
   build dedicated followers, and foster open dialogue with both like-minded individuals and those with differing viewpoints.
  */
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:amcmotion/api/service_card_api.dart';
+import 'package:amcmotion/service_learn_more_page.dart';
 import 'package:amcmotion/widgets/line_divider.dart';
 import 'package:amcmotion/widgets/logo_image.dart';
 import 'package:amcmotion/widgets/menu_drawer.dart';
@@ -32,7 +32,6 @@ class ServicePage extends StatefulWidget {
 
 
 class _ServicePageState extends State<ServicePage> {
-  final StreamController<int> _controller = StreamController<int>();
   bool isLoading = true;
   ServiceCardConfigModel? serviceCardConfig = ServiceCardConfigModel();
   ServiceCardConfigApi? serviceCardConfigApiConfig = ServiceCardConfigApi();
@@ -324,7 +323,7 @@ class _ServicePageState extends State<ServicePage> {
                 width: deviceInfo.size.width,
                 height: 400,
                 child: DefaultTabController(
-                  length: orgCount,
+                  length: 3,
                   child: Scaffold(
                     backgroundColor: Colors.transparent,
                     appBar: AppBar(
@@ -470,6 +469,18 @@ class _ServicePageState extends State<ServicePage> {
                       children: [
                         InkWell(
                           onTap: () {
+                            if (kDebugMode) {
+                              print('Service Learn More touched');
+                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>
+                                  ServiceLearnMorePage(
+                                      serviceName: widget.serviceName,
+                                      serviceTitle: serviceType[widget.serviceKind].serviceTitle!,
+                                      serviceIcon: serviceType[widget.serviceKind].serviceBlueLogo!,
+                                      organizationData: getOrgServicesConfig!.organizations![index])),
+                            );
                           },
                           child: const Center(
                             child: Icon(

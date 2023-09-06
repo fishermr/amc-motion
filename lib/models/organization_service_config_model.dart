@@ -1,5 +1,3 @@
-import 'get_org_services_model.dart';
-
 class OrganizationServicesConfigModel {
   List<Organizations>? organizations;
 
@@ -240,6 +238,25 @@ class UsefulFeatures {
   UsefulFeatures({item, subItem});
 
   UsefulFeatures.fromJson(Map<String, dynamic> json) {
+    item = json['item'];
+    subItem = json['subItem'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['item'] = item;
+    data['subItem'] = subItem;
+    return data;
+  }
+}
+
+class EligibilityCriteria {
+  String? item;
+  String? subItem;
+
+  EligibilityCriteria({item, subItem});
+
+  EligibilityCriteria.fromJson(Map<String, dynamic> json) {
     item = json['item'];
     subItem = json['subItem'];
   }
