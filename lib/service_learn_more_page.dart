@@ -8,6 +8,7 @@ import 'package:amcmotion/widgets/service_icon.dart';
 import 'package:amcmotion/widgets/services_provided.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'api/organization_service_config_api.dart';
 import 'models/organization_service_config_model.dart';
 import 'models/service_card_model.dart';
@@ -56,6 +57,7 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
 
   @override
   Widget build(BuildContext context) {
+    late final Completer<GoogleMapController> controller = Completer();
     MediaQueryData deviceInfo = MediaQuery.of(context);
     screenWidth = deviceInfo.size.width;
     String? orgName = widget.organizationData.orgName;
@@ -66,6 +68,10 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
     String? orgStreetAddress = widget.organizationData.address;
     String? orgEmail = widget.organizationData.email;
     String? orgPhone = widget.organizationData.phoneNumber;
+    String? strLat = widget.organizationData.mapCoords?.lat;
+    double lat = double.parse(strLat!);
+    String? strLng = widget.organizationData.mapCoords?.lng;
+    double lng = double.parse(strLng!);
     List<Services> providedServices =
         widget.organizationData.services!;
     List<UsefulFeatures> providedUsefulFeatures =
@@ -74,6 +80,14 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
         widget.organizationData.eligibilityCriteria!;
     List<SpecialNeeds> providedSpecialNeeds =
         widget.organizationData.specialNeeds!;
+
+    CameraPosition kGooglePlex = CameraPosition(
+      target: LatLng(
+      double.parse(lat as String),
+      double.parse(lng as String)),
+      zoom: 14.4746,
+    );
+
     return Scaffold(
       appBar: AppBar(title: Text(widget.serviceName.toUpperCase())),
         body: isLoading ? const Center(
@@ -409,13 +423,23 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                             ),
                           ],
                         ),
-                        const Column(
+                        Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Padding(
-                            padding: EdgeInsets.fromLTRB(10, 20, 5, 10),
-                              child: Text("MAP"),
+                            padding: const EdgeInsets.fromLTRB(10, 20, 5, 10),
+                              child: SizedBox(
+                                width: screenWidth *.40,
+                                child: GoogleMap(
+                                  mapType: MapType.hybrid,
+                                  initialCameraPosition: kGooglePlex,
+                                  onMapCreated: (GoogleMapController controller) {
+                                    controller.complete(controller);
+                                  },
+                                ),
+
+                              ),
                             ),
                           ],
                         ),

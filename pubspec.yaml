@@ -39,12 +39,12 @@ dependencies:
   flutter_native_splash: ^2.3.1
   flutter_svg: ^2.0.6
   chat_gpt_sdk: ^2.2.0
-  dart_openai: ^3.0.0
+  dart_openai: ^4.0.0
   flutter_markdown: ^0.6.15
   reactive_forms: ^16.0.0
   auto_size_text: ^3.0.0
   dropdown_button2: ^2.3.4
-  http: ^0.13.6
+  http: ^1.1.0
   regexed_validator: ^2.0.0+1
   url_launcher: ^6.1.11
   google_maps_flutter: ^2.5.0
