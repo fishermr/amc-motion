@@ -68,10 +68,16 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
     String? orgStreetAddress = widget.organizationData.address;
     String? orgEmail = widget.organizationData.email;
     String? orgPhone = widget.organizationData.phoneNumber;
-    String? strLat = widget.organizationData.mapCoords?.lat;
-    double lat = double.parse(strLat!);
-    String? strLng = widget.organizationData.mapCoords?.lng;
-    double lng = double.parse(strLng!);
+    //String? strLat = widget.organizationData.map?.lat;
+    if (kDebugMode) {
+      // print('strLat: $strLat');
+    }
+    double lat = 39.02266; //double.parse(strLat!);
+    // String? strLng = widget.organizationData.map?.lng;
+    if (kDebugMode) {
+      // print('strLng: $strLng');
+    }
+    double lng = -76.58551; // double.parse(strLng!);
     List<Services> providedServices =
         widget.organizationData.services!;
     List<UsefulFeatures> providedUsefulFeatures =
@@ -83,8 +89,8 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
 
     CameraPosition kGooglePlex = CameraPosition(
       target: LatLng(
-      double.parse(lat as String),
-      double.parse(lng as String)),
+      lat,
+      lng),
       zoom: 14.4746,
     );
 
@@ -144,6 +150,8 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
               Padding(
                   padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                   child: Image.network(
+                      width:212,
+                      height: 71,
                       orgLogoUrl!
                   ),
               ),
@@ -253,14 +261,14 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: lineDivider(context, 2.0)
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: SizedBox(
                   width: deviceInfo.size.width,
-                  height: 400,
+                  height: 300,
                   child: DefaultTabController(
                     length: 4,
                     child: Scaffold(
@@ -290,7 +298,7 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                                 Tab(text: 'Eligibility'),
                                 Tab(text: 'Special Needs'),
                               ],
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -350,6 +358,10 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                 ),
               ),
               Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
+                  child: lineDivider(context, 2.0)
+              ),
+              Padding(
                 padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
@@ -366,6 +378,8 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                             Padding(
                               padding: const EdgeInsets.fromLTRB(5, 10, 5, 0),
                               child: Image.network(
+                                  width:212,
+                                  height: 71,
                                   orgLogoUrl
                               ),
                             ),
@@ -428,17 +442,18 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 20, 5, 10),
-                              child: SizedBox(
-                                width: screenWidth *.40,
-                                child: GoogleMap(
-                                  mapType: MapType.hybrid,
-                                  initialCameraPosition: kGooglePlex,
-                                  onMapCreated: (GoogleMapController controller) {
-                                    controller.complete(controller);
-                                  },
+                            padding: const EdgeInsets.fromLTRB(5, 20, 5, 5),
+                              child: Container(
+                                constraints: const BoxConstraints(
+                                    minHeight: 170,
+                                    minWidth: 170,
+                                    maxHeight: 170,
+                                    maxWidth: 170
                                 ),
-
+                                child: GoogleMap(
+                                mapType: MapType.normal,
+                                initialCameraPosition: kGooglePlex,
+                              ),
                               ),
                             ),
                           ],

@@ -38,7 +38,7 @@ class Organizations {
   List<EligibilityCriteria>? eligibilityCriteria;
   String? eventPurpose;
   String? id;
-  MapCoords? mapCoords;
+  MapCoords? map;
   String? email;
   String? website;
   String? address;
@@ -71,7 +71,7 @@ class Organizations {
         this.eligibilityCriteria,
         this.eventPurpose,
         this.id,
-        this.mapCoords,
+        this.map,
         this.email,
         this.website,
         this.address,
@@ -119,8 +119,8 @@ class Organizations {
     }
     eventPurpose = json['eventPurpose'];
     id = json['id'];
-    mapCoords = json['mapCoords'] != null
-        ? MapCoords.fromJson(json['mapCoords'])
+    map = json['mapCoords'] != null
+        ? MapCoords.fromJson(json['map'])
         : null;
     email = json['email'];
     website = json['website'];
@@ -169,8 +169,8 @@ class Organizations {
     }
     data['eventPurpose'] = eventPurpose;
     data['id'] = id;
-    if (mapCoords != null) {
-      data['mapCoords'] = mapCoords!.toJson();
+    if (map != null) {
+      data['map'] = map!.toJson();
     }
     data['email'] = email;
     data['website'] = website;

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/organization_service_config_model.dart';
 
 Widget servicesProvided(context, providedServices, type) {
+  MediaQueryData deviceInfo = MediaQuery.of(context);
+  double screenWidth = deviceInfo.size.width;
   return Container(
       color: Colors.white,
       child: Column (
@@ -32,13 +34,16 @@ Widget servicesProvided(context, providedServices, type) {
                     if (!service.item.isEmpty)
                       Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                          child: Text(
-                            service.item,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontSize: 12,
+                          child: SizedBox(
+                            width: screenWidth - 70,
+                            child: Text(
+                              service.item,
+                              style: const TextStyle(
+                                color: Colors.black87,
+                                fontSize: 12,
+                              ),
                             ),
-                          )
+                          ),
                       ),
                     if (!service.subItem.isEmpty)
                       Padding(

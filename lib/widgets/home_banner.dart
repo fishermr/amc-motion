@@ -2,7 +2,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../chat_page.dart';
+import '../learn_more.dart';
 
 Widget bannerSection(BuildContext context) {
   MediaQueryData deviceInfo = MediaQuery.of(context);
@@ -32,7 +32,15 @@ Widget bannerSection(BuildContext context) {
             padding: const EdgeInsets.all(8.0),
             child: OutlinedButton(
               onPressed: () {
-                debugPrint('Received click');
+                if (kDebugMode) {
+                  print('LEARN MORE touched');
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      const LearnMorePage(serviceName: 'Learn More')),
+                );
+
               },
               style: OutlinedButton.styleFrom(
                 foregroundColor: Colors.white,

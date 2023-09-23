@@ -1,8 +1,4 @@
-/*
-Our mission is to illuminate the world’s narratives with transparency, allowing members to think critically and explore multiple
- facets and perspectives of a story.   We believe in providing a dynamic platform that empowers members to cultivate opinions,
-  build dedicated followers, and foster open dialogue with both like-minded individuals and those with differing viewpoints.
- */
+
 import 'dart:async';
 
 import 'package:amcmotion/api/service_card_api.dart';
@@ -39,16 +35,25 @@ class _ServicePageState extends State<ServicePage> {
   OrganizationServicesConfigModel();
   OrganizationServiceConfigApi? getOrgServicesConfigApiConfig =
   OrganizationServiceConfigApi();
+  late List<Organizations> activeOrganizations = [];
+  late List<Organizations> activeServices = [];
+  late List<Organizations> activeEvents = [];
+  late List<Organizations> activeBookmarks = [];
   late List<Clients> clients;
   late List<ServiceType> serviceType;
   late Properties properties;
+  String providedType = 'all';
+  String orgType = 'organization';
   bool checkBoxAll = true;
   bool checkBoxUrgent = false;
   bool checkBoxHealth = false;
   bool checkBoxSocial = false;
   bool checkBoxEducation = false;
   bool checkBoxFinance = false;
-  late int orgCount;
+  int orgCount = 0;
+  int serviceCount = 0;
+  int eventCount = 0;
+  int bookmarkCount = 0;
   late double screenWidth;
 
   @override
@@ -61,13 +66,13 @@ class _ServicePageState extends State<ServicePage> {
 
   Future<void> getServiceCardConfigData() async {
     serviceCardConfig = await serviceCardConfigApiConfig!.serviceCardConfig();
-    setState(() {
+    // setState(() {
       clients = serviceCardConfig!.clients!;
       serviceType = serviceCardConfig!.serviceType!;
       properties = serviceCardConfig!.properties!;
       String clientId = clients[0].clientId!; // Hillcrest
       getOrgServices(clientId);
-    });
+    // });
   }
 
   Future<void> getOrgServices(clientId) async {
@@ -78,7 +83,12 @@ class _ServicePageState extends State<ServicePage> {
       if (kDebugMode) {
         print('getOrgServicesConfig?.organizations: {$getOrgServicesConfig?.organizations.toJson()}');
       }
-      orgCount = getOrgServicesConfig!.organizations!.length;
+      getActiveOrganizations();
+      if (kDebugMode) {
+        print('getOrgServicesConfig number of organizations for serviceType: $providedType');
+        print('getOrgServicesConfig number of organizations for orgType: $orgType');
+        print('getOrgServicesConfig number of organizations: $orgCount');
+      }
       isLoading = false;
     });
   }
@@ -152,11 +162,7 @@ class _ServicePageState extends State<ServicePage> {
                                   print('--> All Checkbox touched value: $value');
                                 }
                                 setState(() {
-                                  checkBoxAll = value!;
-                                  if (kDebugMode) {
-                                    print('--> setState value: $value');
-                                    print('--> setState checkBoxAll: $checkBoxAll');
-                                  }
+                                  checkBoxAll = checkBoxSelection(value!, 'all');
                                 });
                               },
                             ),
@@ -181,7 +187,7 @@ class _ServicePageState extends State<ServicePage> {
                               activeColor: Colors.blue,
                               onChanged: (value) {
                                 setState(() {
-                                  checkBoxUrgent = !checkBoxUrgent;
+                                  checkBoxUrgent = checkBoxSelection(value!, 'urgent');
                                 });
                               },
                             ),
@@ -206,7 +212,7 @@ class _ServicePageState extends State<ServicePage> {
                               activeColor: Colors.blue,
                               onChanged: (value) {
                                 setState(() {
-                                  checkBoxHealth = !checkBoxHealth;
+                                  checkBoxHealth = checkBoxSelection(value!, 'health');
                                 });
                               },
                             ),
@@ -231,7 +237,7 @@ class _ServicePageState extends State<ServicePage> {
                               activeColor: Colors.blue,
                               onChanged: (value) {
                                 setState(() {
-                                  checkBoxSocial = !checkBoxSocial;
+                                  checkBoxSocial = checkBoxSelection(value!, 'social');
                                 });
                               },
                             ),
@@ -256,7 +262,7 @@ class _ServicePageState extends State<ServicePage> {
                               activeColor: Colors.blue,
                               onChanged: (value) {
                                 setState(() {
-                                  checkBoxEducation = !checkBoxEducation;
+                                  checkBoxEducation = checkBoxSelection(value!, 'education');
                                 });
                               },
                             ),
@@ -281,7 +287,7 @@ class _ServicePageState extends State<ServicePage> {
                               activeColor: Colors.blue,
                               onChanged: (value) {
                                 setState(() {
-                                  checkBoxFinance = !checkBoxFinance;
+                                  checkBoxFinance = checkBoxSelection(value!, 'finance');
                                 });
                               },
                             ),
@@ -323,7 +329,7 @@ class _ServicePageState extends State<ServicePage> {
                 width: deviceInfo.size.width,
                 height: 400,
                 child: DefaultTabController(
-                  length: 3,
+                  length: 4,
                   child: Scaffold(
                     backgroundColor: Colors.transparent,
                     appBar: AppBar(
@@ -342,6 +348,7 @@ class _ServicePageState extends State<ServicePage> {
                               Tab(text: 'Organizations'),
                               Tab(text: 'Services'),
                               Tab(text: 'Events'),
+                              Tab(text: 'Bookmarks'),
                             ],
                           )
                         ],
@@ -351,23 +358,41 @@ class _ServicePageState extends State<ServicePage> {
                       children: [
                         ListView.builder(
                           padding: const EdgeInsets.all(8),
-                          itemCount: orgCount,
+                          itemCount: activeOrganizations.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return buildOrganizationCard(index);
+                            return  activeOrganizations.isNotEmpty ?
+                            buildOrganizationCard(index, 'organization')
+                                : buildEmptyCard(index);
                           },
                         ),
                         ListView.builder(
                           padding: const EdgeInsets.all(8),
-                          itemCount: orgCount,
+                          itemCount: activeServices.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return buildOrganizationCard(index);
+                            return  activeServices.isNotEmpty ?
+                            buildOrganizationCard(index, 'service')
+                                : buildEmptyCard(index);
                           },
                         ),
                         ListView.builder(
                           padding: const EdgeInsets.all(8),
-                          itemCount: orgCount,
+                          itemCount: activeEvents.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return buildOrganizationCard(index);
+                            return  activeEvents.isNotEmpty ?
+                            buildOrganizationCard(index, 'event')
+                                : buildEmptyCard(index);
+                          },
+                        ),
+                        ListView.builder(
+                          padding: const EdgeInsets.all(8),
+                          itemCount: activeBookmarks.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            if (kDebugMode) {
+                              print('bookmark count: $orgCount');
+                            }
+                            return  activeBookmarks.isNotEmpty ?
+                              buildOrganizationCard(index, 'bookmark')
+                                : buildEmptyCard(index);
                           },
                         ),
                       ]
@@ -383,19 +408,25 @@ class _ServicePageState extends State<ServicePage> {
     );
   }
 
-  Widget buildOrganizationCard(int index) =>
+  Widget buildOrganizationCard(int index, String type) =>
     ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width - 50,
       ),
-      child:  ListTile(
+      child: ListTile(
         // leading: const Icon(Icons.list),
         title: Column(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Image.network(getOrgServicesConfig!.organizations![index].logoUrl!),
-            Text(getOrgServicesConfig!.organizations![index].orgName!)
+            Center(
+              child: Image.network(
+                activeOrganizations[index].logoUrl!,
+                width: 212,
+                height: 71,
+              ),
+            ),
+            Text(activeOrganizations[index].orgName!)
           ]
         ),
         subtitle: Column(
@@ -405,46 +436,55 @@ class _ServicePageState extends State<ServicePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
               child: Text(
-                  getOrgServicesConfig!.organizations![index].description!
+                  activeOrganizations[index].description!
               ),
             ),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    //
-                  },
-                  child: const Center(
-                    child: Icon(
-                      Icons.bookmark,
-                      color: Colors.green,
-                      size: 30.0,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                  child: InkWell(
+                    onTap: () {
+                      //
+                    },
+                    child: const Center(
+                      child: Icon(
+                        Icons.bookmark,
+                        color: Colors.green,
+                        size: 30.0,
+                      ),
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    //
-                  },
-                  child: const Center(
-                    child: Icon(
-                      Icons.thumb_up,
-                      color: Colors.green,
-                      size: 30.0,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                  child: InkWell(
+                    onTap: () {
+                      //
+                    },
+                    child: const Center(
+                      child: Icon(
+                        Icons.thumb_up,
+                        color: Colors.green,
+                        size: 30.0,
+                      ),
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    //
-                  },
-                  child: const Center(
-                    child: Icon(
-                      Icons.comment,
-                      color: Colors.green,
-                      size: 30.0,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                    child: InkWell(
+                    onTap: () {
+                      //
+                    },
+                    child: const Center(
+                      child: Icon(
+                        Icons.comment,
+                        color: Colors.green,
+                        size: 30.0,
+                      ),
                     ),
                   ),
                 ),
@@ -479,7 +519,7 @@ class _ServicePageState extends State<ServicePage> {
                                       serviceName: widget.serviceName,
                                       serviceTitle: serviceType[widget.serviceKind].serviceTitle!,
                                       serviceIcon: serviceType[widget.serviceKind].serviceBlueLogo!,
-                                      organizationData: getOrgServicesConfig!.organizations![index])),
+                                      organizationData: activeOrganizations[index])),
                             );
                           },
                           child: const Center(
@@ -513,27 +553,83 @@ class _ServicePageState extends State<ServicePage> {
             ),
           ]
         ),
-        /*trailing: const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-            SizedBox(
-              width: 30.0,
-              child: Icon(
-                Icons.audiotrack,
-                color: Colors.green,
-                size: 30.0,
-              ),
-            ),
-            SizedBox(
-              width: 30.0,
-              child: Icon(
-                Icons.beach_access,
-                color: Colors.blue,
-                size: 36.0,
-              ),
-            ),
-          ]
-        ),*/
       )
     );
+
+  Widget buildEmptyCard(int index) =>
+      ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width - 50,
+        ),
+        child: const Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Center(
+                child: Text(
+                  'No active organizations',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.0,
+                  ),
+                )
+              ),
+            ]
+        ),
+    );
+
+  checkBoxSelection(bool selection, String type) {
+    checkBoxAll = false;
+    checkBoxUrgent = false;
+    checkBoxHealth = false;
+    checkBoxSocial = false;
+    checkBoxEducation = false;
+    checkBoxFinance = false;
+    if (selection) {
+      providedType = type;
+      getActiveOrganizations();
+      if (kDebugMode) {
+        print('checkBoxSelection number of activeOrganizations: ${activeOrganizations.length}');
+        print('checkBoxSelection number of activeServices: ${activeServices.length}');
+        print('checkBoxSelection number of activeEvents: ${activeEvents.length}');
+        print('checkBoxSelection number of activeBookmarks: ${activeBookmarks.length}');
+      }
+    }
+    return selection;
+  }
+
+  getActiveOrganizations() {
+    if (kDebugMode) {
+      print('getActiveOrganizations providedType: --->$providedType<---');
+    }
+    activeOrganizations = [];
+    activeServices = [];
+    activeEvents = [];
+    activeBookmarks = [];
+    for (Organizations org in getOrgServicesConfig!.organizations!) {
+      if ((org.serviceProvided!.any((e) => e.toString().toLowerCase().contains(providedType)) &&
+        org.orgCardType == 'organization') ||
+          (providedType == 'all' && org.orgCardType == 'organization')) {
+        activeOrganizations.add(org);
+      }
+      else
+      if ((org.serviceProvided!.any((e) => e.toString().toLowerCase().contains(providedType)) &&
+          org.orgCardType == 'service') ||
+          (providedType == 'all' && org.orgCardType == 'service')) {
+        activeServices.add(org);
+      }
+      else
+      if ((org.serviceProvided!.any((e) => e.toString().toLowerCase().contains(providedType)) &&
+          org.orgCardType == 'event') ||
+          (providedType == 'all' && org.orgCardType == 'event')) {
+        activeEvents.add(org);
+      }
+      // Bookmark
+      /*if ((org.serviceProvided!.any((e) => e.toString().toLowerCase().contains(providedType)) &&
+          org.orgCardType == 'bookmark') ||
+          (providedType == 'all' && org.orgCardType == 'service')) {
+        activeBookmarks.add(org);
+      }*/
+    }
+  }
 }
