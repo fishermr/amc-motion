@@ -426,7 +426,16 @@ class _ServicePageState extends State<ServicePage> {
                 height: 71,
               ),
             ),
-            Text(activeOrganizations[index].orgName!)
+            const SizedBox(height: 10),
+            Text(activeOrganizations[index].orgName!,
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: 'Merriweather',
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.bold,
+                fontSize: 15.0,
+              ),
+            )
           ]
         ),
         subtitle: Column(
@@ -436,58 +445,61 @@ class _ServicePageState extends State<ServicePage> {
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
               child: Text(
-                  activeOrganizations[index].description!
+                activeOrganizations[index].description!,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontFamily: 'Georgia',
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 14.0,
+                ),
               ),
             ),
+            const SizedBox(height: 10),
             Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
-                  child: InkWell(
-                    onTap: () {
-                      //
-                    },
-                    child: const Center(
-                      child: Icon(
-                        Icons.bookmark,
-                        color: Colors.green,
-                        size: 30.0,
-                      ),
+                InkWell(
+                  onTap: () {
+                    //
+                  },
+                  child: const Center(
+                    child: Icon(
+                      Icons.bookmark,
+                      color: Colors.green,
+                      size: 30.0,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
-                  child: InkWell(
-                    onTap: () {
-                      //
-                    },
-                    child: const Center(
-                      child: Icon(
-                        Icons.thumb_up,
-                        color: Colors.green,
-                        size: 30.0,
-                      ),
+
+                const SizedBox(width: 10),
+                InkWell(
+                  onTap: () {
+                    //
+                  },
+                  child: const Center(
+                    child: Icon(
+                      Icons.thumb_up,
+                      color: Colors.green,
+                      size: 30.0,
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
-                    child: InkWell(
-                    onTap: () {
-                      //
-                    },
-                    child: const Center(
-                      child: Icon(
-                        Icons.comment,
-                        color: Colors.green,
-                        size: 30.0,
-                      ),
+                const SizedBox(width: 10),
+                InkWell(
+                  onTap: () {
+                    //
+                  },
+                  child: const Center(
+                    child: Icon(
+                      Icons.comment,
+                      color: Colors.green,
+                      size: 30.0,
                     ),
                   ),
                 ),
+                const SizedBox(width: 10),
                 InkWell(
                   onTap: () {
                     //

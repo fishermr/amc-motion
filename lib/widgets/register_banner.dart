@@ -17,7 +17,6 @@ Widget registerBannerSection(BuildContext context) {
     print('padding: ${deviceInfo.padding}');
     print('deviceInfo.devicePixelRatio: ${deviceInfo.devicePixelRatio}');
   }
-
   final bannerImageHeight = (deviceInfo.size.width *
       (9 * deviceInfo.devicePixelRatio) / (16 * deviceInfo.devicePixelRatio));
   if (kDebugMode) {

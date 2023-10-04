@@ -105,3 +105,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Merriweather
+      fonts:
+        - asset: assets/fonts/Merriweather-Bold.ttf
+          weight: 700
+    - family: Georgia
+      fonts:
+       - asset: assets/fonts/georgia.ttf
+         weight: 400
