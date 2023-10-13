@@ -7,15 +7,15 @@ import '../learn_more.dart';
 Widget bannerSection(BuildContext context) {
   MediaQueryData deviceInfo = MediaQuery.of(context);
   if (kDebugMode) {
-    print('size: ${deviceInfo.size}');
-    print('padding: ${deviceInfo.padding}');
-    print('deviceInfo.devicePixelRatio: ${deviceInfo.devicePixelRatio}');
+    // print('size: ${deviceInfo.size}');
+    // print('padding: ${deviceInfo.padding}');
+    // print('deviceInfo.devicePixelRatio: ${deviceInfo.devicePixelRatio}');
   }
 
   final bannerImageHeight = (deviceInfo.size.width *
       (9 * deviceInfo.devicePixelRatio) / (16 * deviceInfo.devicePixelRatio));
   if (kDebugMode) {
-    print('bannerImageHeight: $bannerImageHeight');
+    // print('bannerImageHeight: $bannerImageHeight');
   }
   final bottomOffset = bannerImageHeight - 30;
 

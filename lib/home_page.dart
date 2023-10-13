@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
     activeClient = await clientService!.clientData();
     setState(() {
       if (kDebugMode) {
-        log('client length:  ${activeClient.clientName}');
+        // log('client length:  ${activeClient.clientName}');
       }
       clientId = activeClient.clientId;
       clientName = activeClient.clientName;
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
       clientActive = activeClient.active;
 
       if (kDebugMode) {
-        print('getClientService isLoading: $isLoading');
+        // print('getClientService isLoading: $isLoading');
       }
     });
   }
@@ -87,9 +87,9 @@ class _HomePageState extends State<HomePage> {
     dataFromAPI = await generalConfig!.configData();
     setState(() {
       if (kDebugMode) {
-        print(
-            'getGeneralConfig dataFromAPI!clientServices: $dataFromAPI!clientServices');
-        print('getGeneralConfig isLoading: $isLoading');
+        // print(
+        //    'getGeneralConfig dataFromAPI!clientServices: $dataFromAPI!clientServices');
+        // print('getGeneralConfig isLoading: $isLoading');
       }
     });
   }
@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
     commonData = await commonConfig!.commonConfig();
     setState(() {
       if (kDebugMode) {
-        print('getCommonData isLoading: $isLoading');
+        // print('getCommonData isLoading: $isLoading');
       }
     });
   }
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
         // log('header clientId:  ${activeHeader.clientId}');
       }
       if (kDebugMode) {
-        print('getHeaderData isLoading: $isLoading');
+        // print('getHeaderData isLoading: $isLoading');
       }
     });
   }
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       isLoading = false;
       if (kDebugMode) {
-        log('home clientId:  ${activeHome.clientId}');
+        // log('home clientId:  ${activeHome.clientId}');
       }
     });
   }

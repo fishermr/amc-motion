@@ -1,9 +1,9 @@
-class OrganizationServicesConfigModel {
+class OrganizationModel {
   List<Organizations>? organizations;
 
-  OrganizationServicesConfigModel({this.organizations});
+  OrganizationModel({this.organizations});
 
-  OrganizationServicesConfigModel.fromJson(Map<String, dynamic> json) {
+  OrganizationModel.fromJson(Map<String, dynamic> json) {
     if (json['organizations'] != null) {
       organizations = <Organizations>[];
       json['organizations'].forEach((v) {
@@ -15,8 +15,7 @@ class OrganizationServicesConfigModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     if (organizations != null) {
-      data['organizations'] =
-          organizations!.map((v) => v.toJson()).toList();
+      data['organizations'] = organizations!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -24,11 +23,11 @@ class OrganizationServicesConfigModel {
 
 class Organizations {
   List<String>? serviceProvided;
-  String? tagLine;
   String? promoUrl;
   String? description;
   List<String>? clientServices;
   List<SpecialNeeds>? specialNeeds;
+  MapCoords? mapCoords;
   String? eventCost;
   String? eventTitle;
   List<UsefulFeatures>? usefulFeatures;
@@ -38,7 +37,6 @@ class Organizations {
   List<EligibilityCriteria>? eligibilityCriteria;
   String? eventPurpose;
   String? id;
-  MapCoords? map;
   String? email;
   String? website;
   String? address;
@@ -51,17 +49,18 @@ class Organizations {
   String? eventDetails;
   String? phoneNumber;
   String? eventBuildNameNumber;
+  String? tagLine;
   String? eventSpecialRequirements;
   String? promoAlt;
   String? eventDate;
 
   Organizations(
       {this.serviceProvided,
-        this.tagLine,
         this.promoUrl,
         this.description,
         this.clientServices,
         this.specialNeeds,
+        this.mapCoords,
         this.eventCost,
         this.eventTitle,
         this.usefulFeatures,
@@ -71,7 +70,6 @@ class Organizations {
         this.eligibilityCriteria,
         this.eventPurpose,
         this.id,
-        this.map,
         this.email,
         this.website,
         this.address,
@@ -84,13 +82,13 @@ class Organizations {
         this.eventDetails,
         this.phoneNumber,
         this.eventBuildNameNumber,
+        this.tagLine,
         this.eventSpecialRequirements,
         this.promoAlt,
         this.eventDate});
 
   Organizations.fromJson(Map<String, dynamic> json) {
     serviceProvided = json['serviceProvided'].cast<String>();
-    tagLine = json['tagLine'];
     promoUrl = json['promoUrl'];
     description = json['description'];
     clientServices = json['clientServices'].cast<String>();
@@ -100,6 +98,9 @@ class Organizations {
         specialNeeds!.add(SpecialNeeds.fromJson(v));
       });
     }
+    mapCoords = json['mapCoords'] != null
+        ? MapCoords.fromJson(json['mapCoords'])
+        : null;
     eventCost = json['eventCost'];
     eventTitle = json['eventTitle'];
     if (json['usefulFeatures'] != null) {
@@ -119,9 +120,6 @@ class Organizations {
     }
     eventPurpose = json['eventPurpose'];
     id = json['id'];
-    map = json['mapCoords'] != null
-        ? MapCoords.fromJson(json['map'])
-        : null;
     email = json['email'];
     website = json['website'];
     address = json['address'];
@@ -139,6 +137,7 @@ class Organizations {
     eventDetails = json['eventDetails'];
     phoneNumber = json['phoneNumber'];
     eventBuildNameNumber = json['eventBuildNameNumber'];
+    tagLine = json['tagLine'];
     eventSpecialRequirements = json['eventSpecialRequirements'];
     promoAlt = json['promoAlt'];
     eventDate = json['eventDate'];
@@ -147,12 +146,14 @@ class Organizations {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['serviceProvided'] = serviceProvided;
-    data['tagLine'] = tagLine;
     data['promoUrl'] = promoUrl;
     data['description'] = description;
     data['clientServices'] = clientServices;
     if (specialNeeds != null) {
       data['specialNeeds'] = specialNeeds!.map((v) => v.toJson()).toList();
+    }
+    if (mapCoords != null) {
+      data['mapCoords'] = mapCoords!.toJson();
     }
     data['eventCost'] = eventCost;
     data['eventTitle'] = eventTitle;
@@ -169,9 +170,6 @@ class Organizations {
     }
     data['eventPurpose'] = eventPurpose;
     data['id'] = id;
-    if (map != null) {
-      data['map'] = map!.toJson();
-    }
     data['email'] = email;
     data['website'] = website;
     data['address'] = address;
@@ -186,6 +184,7 @@ class Organizations {
     data['eventDetails'] = eventDetails;
     data['phoneNumber'] = phoneNumber;
     data['eventBuildNameNumber'] = eventBuildNameNumber;
+    data['tagLine'] = tagLine;
     data['eventSpecialRequirements'] = eventSpecialRequirements;
     data['promoAlt'] = promoAlt;
     data['eventDate'] = eventDate;
@@ -197,7 +196,7 @@ class SpecialNeeds {
   String? subItem;
   String? item;
 
-  SpecialNeeds({subItem, item});
+  SpecialNeeds({this.subItem, this.item});
 
   SpecialNeeds.fromJson(Map<String, dynamic> json) {
     subItem = json['subItem'];
@@ -205,7 +204,46 @@ class SpecialNeeds {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['subItem'] = subItem;
+    data['item'] = item;
+    return data;
+  }
+}
+
+class UsefulFeatures {
+  String? subItem;
+  String? item;
+
+  UsefulFeatures({this.subItem, this.item});
+
+  UsefulFeatures.fromJson(Map<String, dynamic> json) {
+    subItem = json['subItem'];
+    item = json['item'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['subItem'] = subItem;
+    data['item'] = item;
+    return data;
+  }
+}
+
+class EligibilityCriteria {
+  String? subItem;
+  String? item;
+
+  EligibilityCriteria({this.subItem, this.item});
+
+  EligibilityCriteria.fromJson(Map<String, dynamic> json) {
+    subItem = json['subItem'];
+    item = json['item'];
+  }
+
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['subItem'] = subItem;
     data['item'] = item;
     return data;
@@ -213,58 +251,21 @@ class SpecialNeeds {
 }
 
 class Services {
-  String? item;
   String? subItem;
+  String? item;
 
-  Services({item, subItem});
+  Services({this.subItem, this.item});
 
   Services.fromJson(Map<String, dynamic> json) {
-    item = json['item'];
     subItem = json['subItem'];
+    item = json['item'];
   }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['item'] = item;
     data['subItem'] = subItem;
-    return data;
-  }
-}
-
-class UsefulFeatures {
-  String? item;
-  String? subItem;
-
-  UsefulFeatures({item, subItem});
-
-  UsefulFeatures.fromJson(Map<String, dynamic> json) {
-    item = json['item'];
-    subItem = json['subItem'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
     data['item'] = item;
-    data['subItem'] = subItem;
-    return data;
-  }
-}
-
-class EligibilityCriteria {
-  String? item;
-  String? subItem;
-
-  EligibilityCriteria({item, subItem});
-
-  EligibilityCriteria.fromJson(Map<String, dynamic> json) {
-    item = json['item'];
-    subItem = json['subItem'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['item'] = item;
-    data['subItem'] = subItem;
     return data;
   }
 }
@@ -274,7 +275,7 @@ class MapCoords {
   String? lat;
   String? location;
 
-  MapCoords({lng, lat, location});
+  MapCoords({this.lng, this.lat, this.location});
 
   MapCoords.fromJson(Map<String, dynamic> json) {
     lng = json['lng'];

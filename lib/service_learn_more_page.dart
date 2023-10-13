@@ -1,5 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
 
 import 'package:amcmotion/api/service_card_api.dart';
 import 'package:amcmotion/widgets/line_divider.dart';
@@ -9,8 +7,8 @@ import 'package:amcmotion/widgets/services_provided.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'api/organization_service_config_api.dart';
-import 'models/organization_service_config_model.dart';
+import 'api/organization_api.dart';
+import 'models/organization_model.dart';
 import 'models/service_card_model.dart';
 
 class ServiceLearnMorePage extends StatefulWidget {
@@ -32,10 +30,10 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
   bool isLoading = true;
   ServiceCardConfigModel? serviceCardConfig = ServiceCardConfigModel();
   ServiceCardConfigApi? serviceCardConfigApiConfig = ServiceCardConfigApi();
-  OrganizationServicesConfigModel? getOrgServicesConfig =
-  OrganizationServicesConfigModel();
-  OrganizationServiceConfigApi? getOrgServicesConfigApiConfig =
-  OrganizationServiceConfigApi();
+  OrganizationModel? getOrgServicesConfig =
+  OrganizationModel();
+  OrganizationApi? getOrgServicesConfigApiConfig =
+  OrganizationApi();
   late List<Clients> clients;
   late List<ServiceType> serviceType;
   late Properties properties;
@@ -57,7 +55,6 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
 
   @override
   Widget build(BuildContext context) {
-    late final Completer<GoogleMapController> controller = Completer();
     MediaQueryData deviceInfo = MediaQuery.of(context);
     screenWidth = deviceInfo.size.width;
     String? orgName = widget.organizationData.orgName;
@@ -68,16 +65,17 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
     String? orgStreetAddress = widget.organizationData.address;
     String? orgEmail = widget.organizationData.email;
     String? orgPhone = widget.organizationData.phoneNumber;
-    //String? strLat = widget.organizationData.map?.lat;
+    String? strLat = widget.organizationData.mapCoords?.lat;
     if (kDebugMode) {
-      // print('strLat: $strLat');
+      print('strLat: $strLat');
     }
-    double lat = 39.02266; //double.parse(strLat!);
-    // String? strLng = widget.organizationData.map?.lng;
+    double lat = double.parse(strLat!);
+    String? strLng = widget.organizationData.mapCoords?.lng;
     if (kDebugMode) {
-      // print('strLng: $strLng');
+      print('strLng: $strLng');
     }
-    double lng = -76.58551; // double.parse(strLng!);
+    double lng = double.parse(strLng!);
+
     List<Services> providedServices =
         widget.organizationData.services!;
     List<UsefulFeatures> providedUsefulFeatures =
@@ -362,7 +360,7 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                   child: lineDivider(context, 2.0)
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 20),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -391,7 +389,8 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                                     orgName,
                                     style: const TextStyle(
                                       color: Colors.black87,
-                                      fontSize: 12,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
@@ -405,6 +404,7 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                                   style: const TextStyle(
                                     color: Colors.black87,
                                     fontSize: 12,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ),
@@ -418,6 +418,7 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                                   style: const TextStyle(
                                     color: Colors.black87,
                                     fontSize: 12,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ),
@@ -431,32 +432,33 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                                   style: const TextStyle(
                                     color: Colors.black87,
                                     fontSize: 12,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                            padding: const EdgeInsets.fromLTRB(5, 20, 5, 5),
-                              child: Container(
-                                constraints: const BoxConstraints(
-                                    minHeight: 170,
-                                    minWidth: 170,
-                                    maxHeight: 170,
-                                    maxWidth: 170
-                                ),
-                                child: GoogleMap(
-                                mapType: MapType.normal,
-                                initialCameraPosition: kGooglePlex,
-                              ),
-                              ),
+                       ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 20, 30),
+                          child: Container(
+                            constraints: BoxConstraints(
+                              minWidth: deviceInfo.size.width - 60,
+                              maxWidth: deviceInfo.size.width - 60,
+                              minHeight: (deviceInfo.size.width - 60) / 2.0,
+                              maxHeight: (deviceInfo.size.width - 60) / 2.0,
                             ),
-                          ],
+                            child: GoogleMap(
+                              mapType: MapType.normal,
+                              initialCameraPosition: kGooglePlex,
+                            ),
+                          ),
                         ),
                       ],
                     ),

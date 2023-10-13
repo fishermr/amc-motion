@@ -1,5 +1,7 @@
 
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 
 import 'package:amcmotion/api/service_card_api.dart';
 import 'package:amcmotion/service_learn_more_page.dart';
@@ -9,8 +11,8 @@ import 'package:amcmotion/widgets/menu_drawer.dart';
 import 'package:amcmotion/widgets/service_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'api/organization_service_config_api.dart';
-import 'models/organization_service_config_model.dart';
+import 'api/organization_api.dart';
+import 'models/organization_model.dart';
 import 'models/service_card_model.dart';
 
 
@@ -28,13 +30,11 @@ class ServicePage extends StatefulWidget {
 
 
 class _ServicePageState extends State<ServicePage> {
-  bool isLoading = true;
+  bool _isLoading = true;
   ServiceCardConfigModel? serviceCardConfig = ServiceCardConfigModel();
   ServiceCardConfigApi? serviceCardConfigApiConfig = ServiceCardConfigApi();
-  OrganizationServicesConfigModel? getOrgServicesConfig =
-  OrganizationServicesConfigModel();
-  OrganizationServiceConfigApi? getOrgServicesConfigApiConfig =
-  OrganizationServiceConfigApi();
+  OrganizationModel? getOrgServicesConfig = OrganizationModel();
+  OrganizationApi? getOrgServicesConfigApiConfig = OrganizationApi();
   late List<Organizations> activeOrganizations = [];
   late List<Organizations> activeServices = [];
   late List<Organizations> activeEvents = [];
@@ -54,354 +54,373 @@ class _ServicePageState extends State<ServicePage> {
   int serviceCount = 0;
   int eventCount = 0;
   int bookmarkCount = 0;
-  late double screenWidth;
 
   @override
   void initState() {
     super.initState();
 
-    isLoading = true;
+    _isLoading = true;
     getServiceCardConfigData();
   }
 
   Future<void> getServiceCardConfigData() async {
     serviceCardConfig = await serviceCardConfigApiConfig!.serviceCardConfig();
-    // setState(() {
-      clients = serviceCardConfig!.clients!;
-      serviceType = serviceCardConfig!.serviceType!;
-      properties = serviceCardConfig!.properties!;
-      String clientId = clients[0].clientId!; // Hillcrest
-      getOrgServices(clientId);
-    // });
-  }
-
-  Future<void> getOrgServices(clientId) async {
-    getOrgServicesConfig =
-      await getOrgServicesConfigApiConfig!.orgServiceData(clientId)
-        as OrganizationServicesConfigModel;
-    setState(() {
+    clients = serviceCardConfig!.clients!;
+    serviceType = serviceCardConfig!.serviceType!;
+    properties = serviceCardConfig!.properties!;
+    String clientId = clients[0].clientId!; // Hillcrest
+    var result = await getOrgServicesConfigApiConfig!.orgServiceData(clientId);
+    // as OrganizationModel;
+    if (result?.statusCode == 200) {
       if (kDebugMode) {
-        print('getOrgServicesConfig?.organizations: {$getOrgServicesConfig?.organizations.toJson()}');
+        debugPrint('orgServices API status 200');
       }
+
+      if (kDebugMode) {
+        final prettyString = const JsonEncoder.withIndent('  ').convert(
+            result.body);
+        log('OrganizationApi API response: $prettyString');
+      }
+      getOrgServicesConfig = OrganizationModel.fromJson(json.decode(result.body));
+      if (kDebugMode) {
+        // final prettyString = const JsonEncoder.withIndent('  ').convert(
+            // getOrgServicesConfig);
+        // log('OrganizationApi API response: $prettyString');
+      }
+    } else {
+      debugPrint('orgServices API status {$result.statusCode}');
+    }
+
+    setState(() {
       getActiveOrganizations();
       if (kDebugMode) {
-        print('getOrgServicesConfig number of organizations for serviceType: $providedType');
-        print('getOrgServicesConfig number of organizations for orgType: $orgType');
-        print('getOrgServicesConfig number of organizations: $orgCount');
+        // print('getServiceCardConfigData number of organizations for serviceType: $providedType');
+        // print('getServiceCardConfigData number of organizations for orgType: $orgType');
+        // print('getServiceCardConfigData number of organizations: $orgCount');
       }
-      isLoading = false;
     });
+
+    _isLoading=  false;
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     final int serviceIndex = widget.serviceKind;
     MediaQueryData deviceInfo = MediaQuery.of(context);
-    screenWidth = deviceInfo.size.width;
 
     return Scaffold(
-        appBar: AppBar(title: Text(widget.serviceName.toUpperCase())),
-    body: isLoading ? const Center(
+      appBar: AppBar(title: Text(widget.serviceName.toUpperCase())),
+      body: _isLoading ? const Center(
         child: CircularProgressIndicator(),
       )
-    :Center (
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-              child: logoImage(context),
+      :LayoutBuilder(
+        builder: (context, constraints) => SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: constraints.maxHeight,
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-              child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      serviceType[serviceIndex].serviceTitle!,
-                      textAlign: TextAlign.left,
-                    ),
-                    SizedBox(
-                      height: 22, width: 71,
-                      child: serviceIcon(context, serviceType[serviceIndex].serviceBlueLogo!),
-                    ),
-                    const Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.black54,
-                          size: 30.0,
-                        ),
-                      ),
-                    ),
-                  ],
-              ),
-            ),
-            lineDivider(context, 6.0),
-            Container(
-                color: Colors.white,
-                child:
-                Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: checkBoxAll,
-                              checkColor: Colors.white,
-                              activeColor: Colors.blue,
-                              onChanged: (bool? value) {
-                                if (kDebugMode) {
-                                  print('--> All Checkbox touched value: $value');
-                                }
-                                setState(() {
-                                  checkBoxAll = checkBoxSelection(value!, 'all');
-                                });
-                              },
+            child:IntrinsicHeight(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                    child: logoImage(context),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            serviceType[serviceIndex].serviceTitle!,
+                            textAlign: TextAlign.left,
+                          ),
+                          SizedBox(
+                            height: 22, width: 71,
+                            child: serviceIcon(context, serviceType[serviceIndex].serviceBlueLogo!),
+                          ),
+                          const Expanded(
+                            child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(
+                                Icons.search,
+                                color: Colors.black54,
+                                size: 30.0,
+                              ),
                             ),
-                            const Text(
-                                'ALL',
+                          ),
+                        ],
+                    ),
+                  ),
+                  lineDivider(context, 6.0),
+                  Container(
+                    color: Colors.white,
+                    child:
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                value: checkBoxAll,
+                                checkColor: Colors.white,
+                                activeColor: Colors.blue,
+                                onChanged: (bool? value) {
+                                  if (kDebugMode) {
+                                    print('--> All Checkbox touched value: $value');
+                                  }
+                                  setState(() {
+                                    checkBoxAll = checkBoxSelection(value!, 'all');
+                                  });
+                                },
+                              ),
+                              const Text(
+                                  'ALL',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 10.0,
+                                  )
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                value: checkBoxUrgent,
+                                checkColor: Colors.white,
+                                activeColor: Colors.blue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkBoxUrgent = checkBoxSelection(value!, 'urgent');
+                                  });
+                                },
+                              ),
+                              const Text(
+                                'URGENT',
                                 style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 10.0,
-                                )
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: checkBoxUrgent,
-                              checkColor: Colors.white,
-                              activeColor: Colors.blue,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxUrgent = checkBoxSelection(value!, 'urgent');
-                                });
-                              },
-                            ),
-                            const Text(
-                              'URGENT',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 10.0,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: checkBoxHealth,
-                              checkColor: Colors.white,
-                              activeColor: Colors.blue,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxHealth = checkBoxSelection(value!, 'health');
-                                });
-                              },
-                            ),
-                            const Text(
-                              'HEALTH',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 10.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: checkBoxSocial,
-                              checkColor: Colors.white,
-                              activeColor: Colors.blue,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxSocial = checkBoxSelection(value!, 'social');
-                                });
-                              },
-                            ),
-                            const Text(
-                              'SOCIAL',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 10.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: checkBoxEducation,
-                              checkColor: Colors.white,
-                              activeColor: Colors.blue,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxEducation = checkBoxSelection(value!, 'education');
-                                });
-                              },
-                            ),
-                            const Text(
-                              'EDUCATION',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 10.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Checkbox(
-                              value: checkBoxFinance,
-                              checkColor: Colors.white,
-                              activeColor: Colors.blue,
-                              onChanged: (value) {
-                                setState(() {
-                                  checkBoxFinance = checkBoxSelection(value!, 'finance');
-                                });
-                              },
-                            ),
-                            const Text(
-                              'FINANCE',
-                              style: TextStyle(
-                                color: Colors.blue,
-                                fontSize: 10.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ]
-                )
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: Container(
-                color: Colors.lightBlueAccent,
-                width: deviceInfo.size.width,
-                child: const Padding(
-                  padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
-                  child: Center(
-                    child: Text(
-                      'POPULAR SERVICES IN YOUR AREA',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                  ),
-                )
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: SizedBox(
-                width: deviceInfo.size.width,
-                height: 400,
-                child: DefaultTabController(
-                  length: 4,
-                  child: Scaffold(
-                    backgroundColor: Colors.transparent,
-                    appBar: AppBar(
-                      automaticallyImplyLeading: false, // remove back button
-                      backgroundColor: Colors.transparent,
-                      elevation: 0.0,
-                      flexibleSpace: const Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TabBar(
-                            indicatorColor: Colors.grey,
-                            labelColor: Colors.blue,
-                            unselectedLabelColor: Colors.grey,
-                            isScrollable: true,
-                            tabs: [
-                              Tab(text: 'Organizations'),
-                              Tab(text: 'Services'),
-                              Tab(text: 'Events'),
-                              Tab(text: 'Bookmarks'),
                             ],
-                          )
-                        ],
-                      ),
-                    ),
-                    body: TabBarView(
-                      children: [
-                        ListView.builder(
-                          padding: const EdgeInsets.all(8),
-                          itemCount: activeOrganizations.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return  activeOrganizations.isNotEmpty ?
-                            buildOrganizationCard(index, 'organization')
-                                : buildEmptyCard(index);
-                          },
+                          ),
                         ),
-                        ListView.builder(
-                          padding: const EdgeInsets.all(8),
-                          itemCount: activeServices.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return  activeServices.isNotEmpty ?
-                            buildOrganizationCard(index, 'service')
-                                : buildEmptyCard(index);
-                          },
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                value: checkBoxHealth,
+                                checkColor: Colors.white,
+                                activeColor: Colors.blue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkBoxHealth = checkBoxSelection(value!, 'health');
+                                  });
+                                },
+                              ),
+                              const Text(
+                                'HEALTH',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 10.0,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        ListView.builder(
-                          padding: const EdgeInsets.all(8),
-                          itemCount: activeEvents.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return  activeEvents.isNotEmpty ?
-                            buildOrganizationCard(index, 'event')
-                                : buildEmptyCard(index);
-                          },
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                value: checkBoxSocial,
+                                checkColor: Colors.white,
+                                activeColor: Colors.blue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkBoxSocial = checkBoxSelection(value!, 'social');
+                                  });
+                                },
+                              ),
+                              const Text(
+                                'SOCIAL',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 10.0,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        ListView.builder(
-                          padding: const EdgeInsets.all(8),
-                          itemCount: activeBookmarks.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (kDebugMode) {
-                              print('bookmark count: $orgCount');
-                            }
-                            return  activeBookmarks.isNotEmpty ?
-                              buildOrganizationCard(index, 'bookmark')
-                                : buildEmptyCard(index);
-                          },
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                value: checkBoxEducation,
+                                checkColor: Colors.white,
+                                activeColor: Colors.blue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkBoxEducation = checkBoxSelection(value!, 'education');
+                                  });
+                                },
+                              ),
+                              const Text(
+                                'EDUCATION',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 10.0,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Checkbox(
+                                value: checkBoxFinance,
+                                checkColor: Colors.white,
+                                activeColor: Colors.blue,
+                                onChanged: (value) {
+                                  setState(() {
+                                    checkBoxFinance = checkBoxSelection(value!, 'finance');
+                                  });
+                                },
+                              ),
+                              const Text(
+                                'FINANCE',
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                  fontSize: 10.0,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ]
                     )
                   ),
-                ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: Container(
+                      color: Colors.lightBlueAccent,
+                      width: deviceInfo.size.width,
+                      child: const Padding(
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Center(
+                          child: Text(
+                            'POPULAR SERVICES IN YOUR AREA',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ),
+                      )
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+                    child: SizedBox(
+                      width: deviceInfo.size.width,
+                      height: deviceInfo.size.height,
+                      child: DefaultTabController(
+                        length: 4,
+                        child: Scaffold(
+                          backgroundColor: Colors.transparent,
+                          appBar: AppBar(
+                            automaticallyImplyLeading: false, // remove back button
+                            backgroundColor: Colors.transparent,
+                            elevation: 0.0,
+                            flexibleSpace: const Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                TabBar(
+                                  indicatorColor: Colors.grey,
+                                  labelColor: Colors.blue,
+                                  unselectedLabelColor: Colors.grey,
+                                  isScrollable: true,
+                                  tabs: [
+                                    Tab(text: 'Organizations'),
+                                    Tab(text: 'Services'),
+                                    Tab(text: 'Events'),
+                                    Tab(text: 'Bookmarks'),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          body: TabBarView(
+                            children: [
+                              ListView.builder(
+                                padding: const EdgeInsets.all(8),
+                                itemCount: activeOrganizations.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return  activeOrganizations.isNotEmpty ?
+                                  buildOrganizationCard(index, 'organization')
+                                      : buildEmptyCard(index);
+                                },
+                              ),
+                              ListView.builder(
+                                padding: const EdgeInsets.all(8),
+                                itemCount: activeServices.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return  activeServices.isNotEmpty ?
+                                  buildOrganizationCard(index, 'service')
+                                      : buildEmptyCard(index);
+                                },
+                              ),
+                              ListView.builder(
+                                padding: const EdgeInsets.all(8),
+                                itemCount: activeEvents.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return  activeEvents.isNotEmpty ?
+                                  buildOrganizationCard(index, 'event')
+                                      : buildEmptyCard(index);
+                                },
+                              ),
+                              ListView.builder(
+                                padding: const EdgeInsets.all(8),
+                                itemCount: activeBookmarks.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  if (kDebugMode) {
+                                    print('bookmark count: $orgCount');
+                                  }
+                                  return  activeBookmarks.isNotEmpty ?
+                                    buildOrganizationCard(index, 'bookmark')
+                                      : buildEmptyCard(index);
+                                },
+                              ),
+                            ]
+                          )
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
+          ),
         ),
       ),
       endDrawer: menuDrawer(context)
@@ -523,6 +542,19 @@ class _ServicePageState extends State<ServicePage> {
                           onTap: () {
                             if (kDebugMode) {
                               print('Service Learn More touched');
+                              var sn = widget.serviceName;
+                              log('serviceName: $sn');
+                              var sk = widget.serviceKind;
+                              log('serviceKind: $sk');
+                              var st = serviceType[widget.serviceKind].serviceTitle!;
+                              log('serviceType: $st');
+                              var sl = serviceType[widget.serviceKind].serviceBlueLogo!;
+                              log('serviceLogo: $sl');
+                              var ao = activeOrganizations[index];
+                              log('ao: $ao');
+                              final prettyString = const JsonEncoder.withIndent('  ').convert(
+                                  ao);
+                              debugPrint('[ ao data: $prettyString   ]');
                             }
                             Navigator.push(
                               context,

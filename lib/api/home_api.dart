@@ -66,12 +66,12 @@ class HomeApi {
     HomeModel? homeList;
     // Fetch content from the json file
     final String response = await rootBundle.loadString('assets/data/home_page.json');
-    log('response {$response}');
+    //log('response {$response}');
     homeList = HomeModel.fromJson(json.decode(response));
     if (kDebugMode) {
       final prettyString = const JsonEncoder.withIndent('  ').convert(
           homeList);
-      print(prettyString);
+      //print(prettyString);
     }
     List<HomeData>? homeData = homeList.homeData;
     if (kDebugMode) {
@@ -85,7 +85,7 @@ class HomeApi {
         log('home.clientId:  ${home.clientId}');
       }
       if (home.clientId == targetId) {
-        if (kDebugMode) {
+        /*if (kDebugMode) {
           log('clientId {$home.clientId}');
           log('leaderImage {$home.leaderImage}');
           log('leaderImageAlt {$home.leaderImageAlt}');
@@ -107,7 +107,7 @@ class HomeApi {
           log('phiButtonUrl {$home.phiButtonUrl}');
           log('phiButtonLabel {$home.phiButtonLabel}');
           log('selfDirectedImage {$home.selfDirectedImage}');
-        }
+        }*/
         activeHomeData = Home(
           home.clientId!,
           home.leaderImage!,

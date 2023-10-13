@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../models/organization_service_config_model.dart';
+import '../models/organization_model.dart';
 
 Widget servicesProvided(context, providedServices, type) {
   MediaQueryData deviceInfo = MediaQuery.of(context);

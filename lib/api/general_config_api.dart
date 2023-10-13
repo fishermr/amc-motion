@@ -13,7 +13,7 @@ class GeneralConfigApi {
     OrgConfigurationModel? dataFromAPI;
     try {
       var amcHeader = {
-        'amc-platform': 'amc741',
+        'amc-platform': 'hfsdemo',
         'Content-Type': 'application/json',
         'Accept': '*/*',
       };
@@ -31,16 +31,16 @@ class GeneralConfigApi {
         }
         dataFromAPI = OrgConfigurationModel.fromJson(json.decode(res.body));
         if (kDebugMode) {
-          log('dataFromAPI: {$dataFromAPI}');
+          // log('dataFromAPI: {$dataFromAPI}');
         }
         if (kDebugMode) {
           for(String service in dataFromAPI!.clientServices){
-            log('dataFromAPI clientServices $service');
+            // log('dataFromAPI clientServices $service');
           }
-          log('dataFromAPI clientServices ${dataFromAPI?.clientServices}');
+          // log('dataFromAPI clientServices ${dataFromAPI?.clientServices}');
         }
         if (kDebugMode) {
-          debugPrint('After setting dataFromAPI.....');
+          // debugPrint('After setting dataFromAPI.....');
         }
       }
     } catch (e) {

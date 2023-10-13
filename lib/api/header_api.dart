@@ -55,7 +55,7 @@ class HeaderApi {
         log('header.clientId:  ${header.clientId}');
       }
       if (header.clientId == targetId) {
-        if (kDebugMode) {
+        /*if (kDebugMode) {
           log('clientId {$header.clientId}');
           log('logoImage {$header.logoImage}');
           log('logoImageAlt {$header.logoImageAlt}');
@@ -65,7 +65,7 @@ class HeaderApi {
           log('reflectionsSignupLink {$header.reflectionsSignupLink}');
           log('aboutCompany {$header.aboutCompany}');
           log('callTracking {$header.callTracking}');
-        }
+        }*/
         activeHeader = Header(
           header.clientId!,
           header.logoImage!,

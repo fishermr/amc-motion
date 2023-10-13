@@ -1,5 +1,5 @@
 {
-  "ORGANIZATIONELEMENT": {
+  "ORGANIssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCtXBGosLl83CQpoY5MUI8zAWEHjPYk1k/737/BCY3QrkoDjEeOkZ2eRZ3MRKQqZQFhsA8OqbSmSBmxFDrUT0I4k9HIfsHzs3t0Ad8lMEEQcC4l7x/6DHR/E43js/vEp12K3CWejQSLdXECnL5+Ko1RH9WdlAZCm8YbEol31LSjb8c9+OpIyS0A6JNN+kfcbFYjaPlW3NWE8YsvjkQpkt3p6mqV93i5WGEDakEveRm0PtHEI6ZrtJfWzCP+6xAA+Sace+9xgn0yj7jF0kTCVj9TA6PXF3wXZjj1bEiysithb1TC7oU27s4aidoQFbwn9dUHyfczDfTwZSAiRl69hMjGr/b11wpK6tuWSL5GFGwdllImf3mR0e2icg5tLBTMfFxEZDwg9xbRVHfeN+5fHl4k1OvASaoLf/Q32roD7UuNJvo+9Rf7dxmba73D+flOTvhvwXCIRUeC1sUqNDJe/i6N8BORFXSD4T8gIhXY2c1Q+xvEIo8lCUTddM2YReckqIc= martinfisher@MacBook-Pro-2.localZATIONELEMENT": {
     "address": "",
     "clientServices": [
       ""
@@ -25,7 +25,7 @@
     "id": "",
     "logoAlt": "",
     "logoUrl": "",
-    "map": {
+    "Geo": {
       "lat": "",
       "lng": "",
       "location": ""
@@ -51,7 +51,7 @@
         "subItem": ""
       }
     ],
-    "tagLine": "",
+    "tagline": "",
     "usefulFeatures": [
       {
         "item": "",
