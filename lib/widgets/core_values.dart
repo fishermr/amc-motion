@@ -22,9 +22,7 @@ Widget coreValuesSection(BuildContext context) {
     'when they are needed to live a healthier, more comfortable life. Our '
     'data driven, human-centered processes increases your organizations '
     'ability to ensure this for all individuals in need.';
-  return Padding(
-    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-    child: Column(
+  return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       mainAxisSize: MainAxisSize.max,
       children: [
@@ -47,16 +45,12 @@ Widget coreValuesSection(BuildContext context) {
         Container(
           color: Colors.blue[50],
           width: deviceInfo.size.width,
-          child: const Padding(
-              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
               child: Text(
                 '03 Ecosystem of Care',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: Theme.of(context).textTheme.titleMedium,
               ),
           ),
         ),
@@ -68,10 +62,7 @@ Widget coreValuesSection(BuildContext context) {
             child: Text(
               ecoSystemOfCare,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 12.0,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),
@@ -94,16 +85,12 @@ Widget coreValuesSection(BuildContext context) {
         Container(
           color: Colors.blue[50],
           width: deviceInfo.size.width,
-          child: const Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Text(
               '02 Trust-Based Interactions',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
         ),
@@ -114,10 +101,7 @@ Widget coreValuesSection(BuildContext context) {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Text(trustBasedInteractions,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 12.0,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),
@@ -140,16 +124,12 @@ Widget coreValuesSection(BuildContext context) {
         Container(
           color: Colors.blue[50],
           width: deviceInfo.size.width,
-          child: const Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Text(
               '03 Ecosystem of Care',
               textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 16.0,
-                fontWeight: FontWeight.bold,
-              ),
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
         ),
@@ -160,15 +140,11 @@ Widget coreValuesSection(BuildContext context) {
             padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
             child: Text(ecoSystemOfCare,
               textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 12.0,
-              ),
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ),
         ),
         const SizedBox(height: 30),
       ],
-    ),
-  );
+    );
 }

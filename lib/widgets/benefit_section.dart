@@ -43,14 +43,10 @@ Widget benefitSection(context) {
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
                 child: SizedBox(
                   width: screenWidth - 40,
-                  child: const Text(
+                  child: Text(
                     'How You Benefit from this Important Initiative',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    )
+                    style: Theme.of(context).textTheme.titleLarge
                   ),
                 ),
               ),
@@ -66,9 +62,9 @@ Widget benefitSection(context) {
                 child: SizedBox(
                   width: screenWidth - 40,
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       children: [
-                        WidgetSpan(
+                        const WidgetSpan(
                           child: Icon(
                             Icons.star_rate,
                             size: 26,
@@ -77,11 +73,7 @@ Widget benefitSection(context) {
                         ),
                         TextSpan(
                           text: " Community Based Organizations – 90 by 90",
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                          )
+                          style: Theme.of(context).textTheme.titleMedium
                         ),
                       ],
                     ),
@@ -101,11 +93,7 @@ Widget benefitSection(context) {
                   child: Text(
                     benefitOne,
                     textAlign: TextAlign.justify,
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 12.0,
-                    )
+                    style: Theme.of(context).textTheme.bodyMedium
                   ),
                 ),
               ),
@@ -121,9 +109,9 @@ Widget benefitSection(context) {
                 child: SizedBox(
                   width: screenWidth - 40,
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       children: [
-                        WidgetSpan(
+                        const WidgetSpan(
                           child: Icon(
                               Icons.star_rate,
                               size: 26,
@@ -132,12 +120,7 @@ Widget benefitSection(context) {
                         ),
                         TextSpan(
                             text: " Hospitals and Healthcare Providers",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            )
-                        ),
+                            style: Theme.of(context).textTheme.titleMedium),
                       ],
                     ),
                   ),
@@ -156,11 +139,7 @@ Widget benefitSection(context) {
                   child: Text(
                       benefitTwo,
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
-                      )
+                      style: Theme.of(context).textTheme.bodyMedium
                   ),
                 ),
               ),
@@ -176,9 +155,9 @@ Widget benefitSection(context) {
                 child: SizedBox(
                   width: screenWidth - 40,
                   child: RichText(
-                    text: const TextSpan(
+                    text: TextSpan(
                       children: [
-                        WidgetSpan(
+                        const WidgetSpan(
                           child: Icon(
                               Icons.star_rate,
                               size: 26,
@@ -187,11 +166,7 @@ Widget benefitSection(context) {
                         ),
                         TextSpan(
                             text: " The People in Your Community",
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16.0,
-                            )
+                            style: Theme.of(context).textTheme.titleMedium
                         ),
                       ],
                     ),
@@ -211,11 +186,7 @@ Widget benefitSection(context) {
                   child: Text(
                       benefitThree,
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
-                      )
+                      style: Theme.of(context).textTheme.bodyMedium
                   ),
                 ),
               ),

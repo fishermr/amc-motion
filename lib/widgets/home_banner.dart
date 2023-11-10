@@ -17,7 +17,8 @@ Widget bannerSection(BuildContext context) {
   if (kDebugMode) {
     // print('bannerImageHeight: $bannerImageHeight');
   }
-  final bottomOffset = bannerImageHeight - 30;
+  // final bottomOffset = bannerImageHeight - 30;
+  final colorScheme = Theme.of(context).colorScheme;
 
   return Stack(
       alignment: Alignment.bottomCenter,
@@ -29,26 +30,27 @@ Widget bannerSection(BuildContext context) {
           fit: BoxFit.cover,
         ),
         Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: OutlinedButton(
-              onPressed: () {
-                if (kDebugMode) {
-                  print('LEARN MORE touched');
-                }
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) =>
-                      const LearnMorePage(serviceName: 'Learn More')),
-                );
+          padding: const EdgeInsets.all(8.0),
+          child: OutlinedButton(
+            onPressed: () {
+              if (kDebugMode) {
+                print('LEARN MORE touched');
+              }
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>
+                    const LearnMorePage(serviceName: 'Learn More')),
+              );
 
-              },
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                side: const BorderSide(width: 2.0, color: Colors.white),
-              ),
-              child: const Text(
-                  'LEARN MORE'
-              ),
+            },
+            style: OutlinedButton.styleFrom(
+              foregroundColor: colorScheme.secondary,
+              side: BorderSide(width: 2.0, color: colorScheme.secondary),
+            ),
+            child: Text(
+              'LEARN MORE',
+              style: Theme.of(context).textTheme.displaySmall
+            )
           ),
         ),
       ]

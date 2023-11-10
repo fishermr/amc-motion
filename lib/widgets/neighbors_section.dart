@@ -1,4 +1,4 @@
-import 'package:amcmotion/widgets/line_divider.dart';
+
 import 'package:flutter/material.dart';
 
 Widget neighborsSection(context) {
@@ -23,48 +23,54 @@ Widget neighborsSection(context) {
       'to a greater level of healthcare and professional services. By using ';
   String helpSeven = ', anyone – anywhere – can now plan care for a friend, '
   'family member, loved one, client, or patient in a time of need.';
-  return Center(
-    child: Container(
+  return Container(
       color: const Color(0xFFFAFAFA),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget> [
-          const Row(
+          Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
-                child: Expanded(
-                  child: Text(
-                    'Your Neighbors Need Your Help ....',
-                    softWrap: false,
-                    maxLines: 2,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0,
-                    )
-                  ),
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+                child: Text(
+                  'Your Neighbors Need Your Help ....',
+                  softWrap: false,
+                  maxLines: 2,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ],
           ),
-          const Row(
+          Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: Text(
                   'This initiative should matter to you',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 14.0,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  child: Text(
+                      helpOne,
+                      textAlign: TextAlign.justify,
+                      style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               ),
@@ -74,124 +80,109 @@ Widget neighborsSection(context) {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: SizedBox(
-                        width: screenWidth - 70,
-                        child: Text(
-                            helpOne,
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12.0,
-                            )
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: SizedBox(
-                        width: screenWidth - 70,
-                        child: Text(
-                            helpTwo,
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12.0,
-                            )
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                      child: SizedBox(
-                        width: screenWidth - 70,
-                        child: Text(
-                            helpThree,
-                            textAlign: TextAlign.justify,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12.0,
-                            )
-                        ),
-                      ),
-                    ),
-                  ],
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  child: Text(
+                      helpTwo,
+                      textAlign: TextAlign.justify,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
               ),
-            ]
+            ],
           ),
-          Column(
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  child: Text(
+                      helpThree,
+                      textAlign: TextAlign.justify,
+                      style: Theme.of(context).textTheme.bodyMedium),
+                ),
+              ),
+            ],
+          ),
+          Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: Image.asset(
-                  'assets/images/neighbors-need-help.png',
-                  // height: bannerImageHeight,
-                  width: deviceInfo.size.width,
-                  fit: BoxFit.cover,
-                ),
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  child: Image.asset(
+                    'assets/images/neighbors-need-help.png',
+                    // height: bannerImageHeight,
+                    width: deviceInfo.size.width,
+                    fit: BoxFit.cover,
+                  ),
+               ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: SizedBox(
-                  width: screenWidth - 70,
-                  child: RichText(
-                    // Whether the text should break at soft line breaks
-                    softWrap: true,
-                    // Maximum number of lines for the text to span
-                    maxLines: 2,
-                    // The number of font pixels for each logical pixel
-                    textScaleFactor: 1,
-                    textAlign: TextAlign.justify,
-                    text: TextSpan(
-                      text: helpFour,
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+            SizedBox(
+              width: screenWidth,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                child: RichText(
+                  // Whether the text should break at soft line breaks
+                  // softWrap: true,
+                  // Maximum number of lines for the text to span
+                  //maxLines: 3,
+                  // The number of font pixels for each logical pixel
+                  // textScaleFactor: 1,
+                  textAlign: TextAlign.justify,
+                  text: TextSpan(
+                    text: helpFour,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: 'AccessMeCare™.',
+                          style: Theme.of(context).textTheme.titleSmall,
                       ),
-                      children: const <TextSpan>[
-                        TextSpan(
-                            text: 'AccessMeCare™.',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            )
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-                child: SizedBox(
-                  width: screenWidth - 70,
+            ),
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                   child: Text(
                       helpFive,
                       textAlign: TextAlign.justify,
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
-                      )
+                      style: Theme.of(context).textTheme.bodyMedium,
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-                child: SizedBox(
-                  width: screenWidth - 70,
+            ],
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
                   child: RichText(
                     // Whether the text should break at soft line breaks
                     softWrap: true,
@@ -200,70 +191,13 @@ Widget neighborsSection(context) {
                     // The number of font pixels for each logical pixel
                     textScaleFactor: 1,
                     textAlign: TextAlign.justify,
-                    text: const TextSpan(
+                    text: TextSpan(
                       text: 'This initiative is powered by - ',
-                      style: TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal,
-                        fontSize: 12.0,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium,
                       children: <TextSpan>[
                         TextSpan(
                             text: 'AccessMeCare™.',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            )
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 20, 20, 30),
-                child: SizedBox(
-                  width: screenWidth - 70,
-                  child: RichText(
-                    // Whether the text should break at soft line breaks
-                    softWrap: true,
-                    // Maximum number of lines for the text to span
-                    maxLines: 6,
-                    // The number of font pixels for each logical pixel
-                    textScaleFactor: 1,
-                    textAlign: TextAlign.justify,
-                    text: TextSpan(
-                      text: 'AccessMeCare™ ',
-                      style: const TextStyle(
-                        color: Colors.black87,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12.0,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: helpSix,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12.0,
-                            )
-                        ),
-                        const TextSpan(
-                            text: 'AccessMeCare™',
-                            style: TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 12.0,
-                            )
-                        ),
-                        TextSpan(
-                            text: helpSeven,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontWeight: FontWeight.normal,
-                              fontSize: 12.0,
-                            )
+                            style: Theme.of(context).textTheme.titleSmall,
                         ),
                       ],
                     ),
@@ -272,8 +206,46 @@ Widget neighborsSection(context) {
               ),
             ],
           ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              SizedBox(
+                width: screenWidth,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  child: RichText(
+                      // Whether the text should break at soft line breaks
+                      softWrap: true,
+                      // Maximum number of lines for the text to span
+                      maxLines: 6,
+                      // The number of font pixels for each logical pixel
+                      textScaleFactor: 1,
+                      textAlign: TextAlign.justify,
+                      text: TextSpan(
+                        text: 'AccessMeCare™ ',
+                        style: Theme.of(context).textTheme.titleSmall,
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: helpSix,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          TextSpan(
+                              text: 'AccessMeCare™',
+                              style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          TextSpan(
+                              text: helpSeven,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                        ],
+                      ),
+                    ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
-    ),
-  );
+    );
 }

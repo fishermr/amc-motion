@@ -110,7 +110,10 @@ class _ServicePageState extends State<ServicePage> {
     MediaQueryData deviceInfo = MediaQuery.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.serviceName.toUpperCase())),
+      appBar: AppBar(title: Text(
+        widget.serviceName.toUpperCase(),
+        style: Theme.of(context).textTheme.displayMedium),
+        iconTheme: const IconThemeData(color: Colors.white)),
       body: _isLoading ? const Center(
         child: CircularProgressIndicator(),
       )
@@ -138,6 +141,7 @@ class _ServicePageState extends State<ServicePage> {
                           Text(
                             serviceType[serviceIndex].serviceTitle!,
                             textAlign: TextAlign.left,
+                            style: Theme.of(context).textTheme.titleSmall
                           ),
                           SizedBox(
                             height: 22, width: 71,
@@ -325,15 +329,12 @@ class _ServicePageState extends State<ServicePage> {
                     child: Container(
                       color: Colors.lightBlueAccent,
                       width: deviceInfo.size.width,
-                      child: const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                         child: Center(
                           child: Text(
                             'POPULAR SERVICES IN YOUR AREA',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0,
-                            ),
+                            style: Theme.of(context).textTheme.titleMedium
                           ),
                         ),
                       )
@@ -447,13 +448,7 @@ class _ServicePageState extends State<ServicePage> {
             ),
             const SizedBox(height: 10),
             Text(activeOrganizations[index].orgName!,
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: 'Merriweather',
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.bold,
-                fontSize: 15.0,
-              ),
+              style: Theme.of(context).textTheme.titleMedium
             )
           ]
         ),
@@ -465,13 +460,7 @@ class _ServicePageState extends State<ServicePage> {
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 5),
               child: Text(
                 activeOrganizations[index].description!,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontFamily: 'Georgia',
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.normal,
-                  fontSize: 14.0,
-                ),
+                style: Theme.of(context).textTheme.bodyMedium
               ),
             ),
             const SizedBox(height: 10),

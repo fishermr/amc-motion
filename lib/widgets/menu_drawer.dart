@@ -1,5 +1,4 @@
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Widget menuDrawer(BuildContext context) {
@@ -11,14 +10,14 @@ Widget menuDrawer(BuildContext context) {
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(
-              color: Colors.green,
+          DrawerHeader(
+            decoration: const BoxDecoration(
+              color: Colors.black87,
             ),
-            child: Text('Drawer Header'),
+            child: Text('Drawer Header', style: Theme.of(context).textTheme.displayLarge),
           ),
           ListTile(
-            title: const Text('Item 1'),
+            title: Text('Item 1', style: Theme.of(context).textTheme.displaySmall),
             onTap: () {
               // Update the state of the app
               // ...
@@ -27,7 +26,7 @@ Widget menuDrawer(BuildContext context) {
             },
           ),
           ListTile(
-            title: const Text('Item 2'),
+            title: Text('Item 2', style: Theme.of(context).textTheme.displaySmall),
             onTap: () {
               // Update the state of the app
               // ...

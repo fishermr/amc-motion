@@ -2,8 +2,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../learn_more.dart';
-
 Widget learnMoreBanner(BuildContext context) {
   MediaQueryData deviceInfo = MediaQuery.of(context);
   if (kDebugMode) {
@@ -17,7 +15,6 @@ Widget learnMoreBanner(BuildContext context) {
   if (kDebugMode) {
     print('bannerImageHeight: $bannerImageHeight');
   }
-  final bottomOffset = bannerImageHeight - 30;
 
   return Stack(
       alignment: Alignment.bottomCenter,
@@ -29,51 +26,44 @@ Widget learnMoreBanner(BuildContext context) {
           fit: BoxFit.cover,
         ),
         Positioned(
-          left: 50,
+          left: 20,
           top: 20,
           child: SizedBox(
-            height: 110,
-            width: 150,
+            height: 112,
+            width: 180,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                const Text(
+                Text(
                   'Join Us in Our Work!',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15,
-                  )
+                  style: Theme.of(context).textTheme.displaySmall,
                 ),
-                const Text(
+                Text(
                     'Support a Positive Change for your Community to Improve Access to Care',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 10,
-                    )
+                    style: Theme.of(context).textTheme.bodySmall,
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    // Add your on pressed event here
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.cyan,
-                    fixedSize: const Size(150, 18),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Add your on pressed event here
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.cyan,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                    ),
+                    child: Text(
+                      'Get Started - Free to Join',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.labelSmall,
                     ),
                   ),
-                  child: const Text(
-                    'Get Started - Free to Join',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 10,
-                      )
                   ),
-                ),
               ]
             ),
           ),

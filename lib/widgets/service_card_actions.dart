@@ -32,6 +32,7 @@ class ServiceCardActionWidgetState extends State<ServiceCardActionWidget> {
     bool checkBoxEducation = false;
     bool checkBoxFinance = false;
 
+    // final colorScheme = Theme.of(context).lightTheme;
     Color getColor(Set<MaterialState> states) {
       const Set<MaterialState> interactiveStates = <MaterialState>{
         MaterialState.pressed,

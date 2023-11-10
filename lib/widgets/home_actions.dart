@@ -12,9 +12,10 @@ Future<void> _launchUrl() async {
   }
 }
 Widget actionSection(context, chatApi) {
+  final colorScheme = Theme.of(context).colorScheme;
   return Center(
     child: Container(
-      color: Colors.white,
+      color: colorScheme.secondary,
       child:
         Row(
           mainAxisSize: MainAxisSize.max,

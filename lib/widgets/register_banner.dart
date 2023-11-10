@@ -32,7 +32,7 @@ Widget registerBannerSection(BuildContext context) {
         child: Image.asset(
           'assets/images/shaded-image.jpg',
           width: deviceInfo.size.width,
-          fit: BoxFit.cover,
+          // fit: BoxFit.cover,
         ),
       ),
       Padding(
@@ -45,14 +45,10 @@ Widget registerBannerSection(BuildContext context) {
             padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
               child:SizedBox(
                 width: screenWidth - 70,
-                child: const Text(
+                child: Text(
                   'Sign Your Organization Up for Free Today',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12.0,
-                  )
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
             ),
@@ -61,11 +57,7 @@ Widget registerBannerSection(BuildContext context) {
               child: Text(
                   registerOne,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 9.0,
-                  )
+                  style: Theme.of(context).textTheme.bodySmall,
               ),
             ),
             Padding(
@@ -75,47 +67,36 @@ Widget registerBannerSection(BuildContext context) {
                 child: Text(
                     registerTwo,
                     textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 9.0,
-                    )
+                    style: Theme.of(context).textTheme.bodySmall,
                 ),
               ),
             ),
             SizedBox(
-            height: 20,
+              height: 20,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.lightBlue,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  textStyle: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontStyle: FontStyle.normal),
                 ),
                 onPressed: () {},
-                child: const Text('Register'),
+                child: Text(
+                  'Register',
+                  style:Theme.of(context).textTheme.labelSmall),
               ),
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child:SizedBox(
                 width: screenWidth - 70,
-                child: const Text(
+                child: Text(
                     'Working Together to Create a Local and More Relevant Care Experience',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12.0,
-                    )
+                    style: Theme.of(context).textTheme.labelMedium,
                 ),
               ),
             ),
-
           ],
       ),
     ),

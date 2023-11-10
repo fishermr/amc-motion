@@ -24,6 +24,7 @@ class HomePage extends StatefulWidget {
   final String title;
   final ChatApi chatApi;
 
+
   @override
   State<HomePage> createState() => _HomePageState();
 
@@ -128,7 +129,11 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text( widget.title)),
+      appBar: AppBar(title: Text(
+        widget.title,
+        style: Theme.of(context).textTheme.displayMedium),
+        iconTheme: const IconThemeData(color: Colors.white),
+      ),
       body:
           isLoading ? const Center(
               child: CircularProgressIndicator(),

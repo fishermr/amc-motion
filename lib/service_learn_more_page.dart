@@ -93,7 +93,10 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(widget.serviceName.toUpperCase())),
+      appBar: AppBar(title: Text(
+          widget.serviceName.toUpperCase(),
+          style: Theme.of(context).textTheme.displayMedium),
+          iconTheme: const IconThemeData(color: Colors.white)),
         body: isLoading ? const Center(
           child: CircularProgressIndicator(),
         )
@@ -104,45 +107,48 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
                 child: logoImage(context),
               ),
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-                child: Row(
+                child: */
+                Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    const SizedBox(width: 20),
                     Text(
                       widget.serviceTitle,
                       textAlign: TextAlign.left,
+                      style: Theme.of(context).textTheme.titleSmall
                     ),
                     SizedBox(
                       height: 22, width: 71,
                       child: serviceIcon(context, widget.serviceIcon),
                     ),
                     const Expanded(
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Icon(
-                          Icons.search,
-                          color: Colors.black54,
-                          size: 30.0,
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Icon(
+                            Icons.search,
+                            color: Colors.black54,
+                            size: 30.0,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
+              /*),*/
               lineDivider(context, 6.0),
               Padding(
                   padding: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                   child: Text(
                     orgName!,
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 16,
-                    ),
+                    style: Theme.of(context).textTheme.titleMedium
                   )
               ),
               Padding(
@@ -163,20 +169,14 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                   padding: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                   child: Text(
                     orgTagline!,
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium
                   )
               ),
               Padding(
                   padding: const EdgeInsets.fromLTRB(5, 20, 5, 0),
                   child: Text(
                     orgDesc!,
-                    style: const TextStyle(
-                      color: Colors.black87,
-                      fontSize: 12,
-                    ),
+                    style: Theme.of(context).textTheme.bodyMedium
                   )
               ),
               Padding(
@@ -262,95 +262,93 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
                 child: lineDivider(context, 2.0)
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child: SizedBox(
-                  width: deviceInfo.size.width,
-                  height: 300,
-                  child: DefaultTabController(
-                    length: 4,
-                    child: Scaffold(
-                      backgroundColor: Colors.transparent,
-                      appBar: AppBar(
-                        automaticallyImplyLeading: false, // remove back button
-                        backgroundColor: Colors.transparent,
-                        elevation: 0.0,
-                        flexibleSpace: const Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            TabBar(
-                              indicatorColor: Colors.grey,
-                              labelColor: Colors.blue,
-                              unselectedLabelColor: Colors.grey,
-                              isScrollable: true,
-                              labelStyle: TextStyle(
-                                  fontSize: 11.0,
-                                  color: Colors.blue
-                              ),
-                              unselectedLabelStyle: TextStyle(
-                                  fontSize: 11.0
-                              ),
-                              tabs: [
-                                Tab(text: 'Services'),
-                                Tab(text: 'Useful Features'),
-                                Tab(text: 'Eligibility'),
-                                Tab(text: 'Special Needs'),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      body: TabBarView(
+              SizedBox(
+                width: deviceInfo.size.width - 20,
+                height: 300,
+                child: DefaultTabController(
+                  length: 4,
+                  child: Scaffold(
+                    backgroundColor: Colors.transparent,
+                    appBar: AppBar(
+                      automaticallyImplyLeading: false, // remove back button
+                      backgroundColor: Colors.yellow,
+                      elevation: 0.0,
+                      flexibleSpace: const Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              return buildOrganizationCard(index, 'services',
-                                  providedServices,
-                                  providedUsefulFeatures,
-                                  providedEligibility,
-                                  providedSpecialNeeds
-                                  );
-                            },
+                          TabBar(
+                            indicatorColor: Colors.grey,
+                            labelColor: Colors.blue,
+                            unselectedLabelColor: Colors.grey,
+                            isScrollable: true,
+                            labelStyle: TextStyle(
+                                fontSize: 11.0,
+                                color: Colors.blue
+                            ),
+                            unselectedLabelStyle: TextStyle(
+                                fontSize: 11.0
+                            ),
+                            tabs: [
+                              Tab(text: 'Services'),
+                              Tab(text: 'Useful Features'),
+                              Tab(text: 'Eligibility'),
+                              Tab(text: 'Special Needs'),
+                            ],
                           ),
-                          ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              return buildOrganizationCard(index, 'useful features',
-                                  providedServices,
-                                  providedUsefulFeatures,
-                                  providedEligibility,
-                                  providedSpecialNeeds
-                              );
-                            },
-                          ),
-                          ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              return buildOrganizationCard(index, 'eligibility',
-                                  providedServices,
-                                  providedUsefulFeatures,
-                                  providedEligibility,
-                                  providedSpecialNeeds
-                              );                            },
-                          ),
-                          ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: 1,
-                            itemBuilder: (BuildContext context, int index) {
-                              return buildOrganizationCard(index, 'special needs',
-                                  providedServices,
-                                  providedUsefulFeatures,
-                                  providedEligibility,
-                                  providedSpecialNeeds
-                              );
-                            },
-                          ),
-                        ]
+                        ],
                       ),
+                    ),
+                    body: TabBarView(
+                      children: [
+                        ListView.builder(
+                          padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return buildOrganizationCard(index, 'services',
+                                providedServices,
+                                providedUsefulFeatures,
+                                providedEligibility,
+                                providedSpecialNeeds
+                            );
+                          },
+                        ),
+                        ListView.builder(
+                          // padding: const EdgeInsets.all(8),
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return buildOrganizationCard(index, 'useful features',
+                                providedServices,
+                                providedUsefulFeatures,
+                                providedEligibility,
+                                providedSpecialNeeds
+                            );
+                          },
+                        ),
+                        ListView.builder(
+                          // padding: const EdgeInsets.all(8),
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return buildOrganizationCard(index, 'eligibility',
+                                providedServices,
+                                providedUsefulFeatures,
+                                providedEligibility,
+                                providedSpecialNeeds
+                            );
+                          },
+                        ),
+                        ListView.builder(
+                          // padding: const EdgeInsets.all(8),
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int index) {
+                            return buildOrganizationCard(index, 'special needs',
+                                providedServices,
+                                providedUsefulFeatures,
+                                providedEligibility,
+                                providedSpecialNeeds
+                            );
+                          },
+                        ),
+                      ]
                     ),
                   ),
                 ),
@@ -384,56 +382,44 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                             Padding(
                                 padding: const EdgeInsets.fromLTRB(10, 20, 5, 2),
                                 child: SizedBox(
-                                  width: screenWidth /2,
+                                  width: screenWidth - 40,
                                   child: Text(
                                     orgName,
-                                    style: const TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                    textAlign: TextAlign.left,
+                                    style: Theme.of(context).textTheme.titleSmall
                                   ),
                                 ),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(10, 20, 5, 2),
                               child: SizedBox(
-                                width: screenWidth /2,
+                                width: screenWidth - 40,
                                 child: Text(
                                   'ADDRESS\n${orgStreetAddress!}',
-                                  style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                                  textAlign: TextAlign.left,
+                                  style: Theme.of(context).textTheme.titleSmall
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(10, 20, 5, 2),
                               child: SizedBox(
-                                width: screenWidth /2,
+                                width: screenWidth - 40,
                                 child: Text(
                                   'EMAIL: ${orgEmail!}',
-                                  style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                                    textAlign: TextAlign.left,
+                                  style: Theme.of(context).textTheme.titleSmall
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(10, 20, 5, 30),
                               child: SizedBox(
-                                width: screenWidth /2,
+                                width: screenWidth - 40,
                                 child: Text(
                                   'PHONE: ${orgPhone!}',
-                                  style: const TextStyle(
-                                    color: Colors.black87,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.normal,
-                                  ),
+                                  textAlign: TextAlign.left,
+                                  style: Theme.of(context).textTheme.titleSmall
                                 ),
                               ),
                             ),
@@ -476,11 +462,11 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
       List<UsefulFeatures> providedUsefulFeatures,
       List<EligibilityCriteria> providedEligibility,
       List<SpecialNeeds> providedSpecialNeeds) =>
-    ConstrainedBox(
+    /*ConstrainedBox(
       constraints: BoxConstraints(
         maxWidth: MediaQuery.of(context).size.width - 50,
       ),
-      child:  ListTile(
+      child:  */ListTile(
         title: Column(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -496,6 +482,6 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                   ],
             ],
          ),
-    ),
-  );
+    );
+  // );
 }

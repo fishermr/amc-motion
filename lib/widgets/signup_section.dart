@@ -43,9 +43,9 @@ Widget signupSection(context) {
                         child: SizedBox(
                           width: screenWidth - 50,
                           child: RichText(
-                            text: const TextSpan(
+                            text: TextSpan(
                               children: [
-                                WidgetSpan(
+                                const WidgetSpan(
                                   child: Icon(
                                       Icons.settings,
                                       size: 26,
@@ -54,22 +54,14 @@ Widget signupSection(context) {
                                 ),
                                 TextSpan(
                                     text: "  Over 50 Million",
-                                    style: TextStyle(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.0,
-                                    )
+                                    style: Theme.of(context).textTheme.titleMedium,
                                 ),
                                 WidgetSpan(
                                   child: Padding(
-                                    padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
                                     child: Text(
                                       'Americans have diagnosable brain health disorders each year',
-                                      style: TextStyle(
-                                      color: Colors.black87,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16.0,
-                                    )
+                                      style: Theme.of(context).textTheme.titleMedium,
                                     )
                                   )
                                 ),
@@ -101,9 +93,9 @@ Widget signupSection(context) {
                         child: SizedBox(
                           width: screenWidth - 50,
                           child: RichText(
-                            text: const TextSpan(
+                            text: TextSpan(
                             children: [
-                              WidgetSpan(
+                              const WidgetSpan(
                                 child: Icon(
                                   Icons.settings,
                                   size: 26,
@@ -112,22 +104,14 @@ Widget signupSection(context) {
                               ),
                               TextSpan(
                                 text: " 1 in 5",
-                                style: TextStyle(
-                                  color: Colors.black87,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16.0,
-                                )
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               WidgetSpan(
                                   child: Padding(
-                                      padding: EdgeInsets.fromLTRB(10, 20, 0, 10),
+                                      padding: const EdgeInsets.fromLTRB(10, 20, 0, 10),
                                       child: Text(
                                           'People have experienced a brain health issue in their lives – that’s over 482,000 Iowans.',
-                                          style: TextStyle(
-                                            color: Colors.black87,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16.0,
-                                          )
+                                          style: Theme.of(context).textTheme.titleMedium,
                                       )
                                   )
                               ),

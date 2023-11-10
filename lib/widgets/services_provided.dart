@@ -5,9 +5,7 @@ import '../models/organization_model.dart';
 Widget servicesProvided(context, providedServices, type) {
   MediaQueryData deviceInfo = MediaQuery.of(context);
   double screenWidth = deviceInfo.size.width;
-  return Container(
-      color: Colors.white,
-      child: Column (
+  return Column (
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget> [
@@ -32,33 +30,25 @@ Widget servicesProvided(context, providedServices, type) {
                           ),
                       ),
                     if (!service.item.isEmpty)
-                      Padding(
+                      Expanded(
+                        child: Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
-                          child: SizedBox(
-                            width: screenWidth - 70,
                             child: Text(
                               service.item,
-                              style: const TextStyle(
-                                color: Colors.black87,
-                                fontSize: 12,
-                              ),
+                              style: Theme.of(context).textTheme.bodyMedium
                             ),
                           ),
-                      ),
+                        ),
                     if (!service.subItem.isEmpty)
                       Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 0, 10),
                           child: Text(
                             service.subItem,
-                            style: const TextStyle(
-                              color: Colors.black87,
-                              fontSize: 12,
-                            ),
+                            style: Theme.of(context).textTheme.bodyMedium,
                           )
                       ),
                   ]
               )
         ]
-      ),
   );
 }
