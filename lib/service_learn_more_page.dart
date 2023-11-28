@@ -271,7 +271,7 @@ class _ServiceLearnMorePageState extends State<ServiceLearnMorePage> {
                     backgroundColor: Colors.transparent,
                     appBar: AppBar(
                       automaticallyImplyLeading: false, // remove back button
-                      backgroundColor: Colors.yellow,
+                      backgroundColor: Colors.transparent,
                       elevation: 0.0,
                       flexibleSpace: const Column(
                         mainAxisAlignment: MainAxisAlignment.end,
